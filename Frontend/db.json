@@ -1,0 +1,46 @@
+{
+  "products": [
+    {
+      "id": "2",
+      "name": "Product 2",
+      "description": "",
+      "owner": "",
+      "total_price": 150,
+      "img_url": ""
+    },
+    {
+      "id": "3",
+      "name": "Product 3",
+      "description": "",
+      "owner": "",
+      "total_price": 200,
+      "img_url": ""
+    },
+    {
+      "id": "4",
+      "name": "ff",
+      "description": "bbnbnb",
+      "owner": "sabah",
+      "total_price": "599",
+      "img_url": ""
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "username": "User1",
+      "email": "user1@example.com"
+    },
+    {
+      "id": "2",
+      "username": "User2",
+      "email": "user2@example.com"
+    },
+    {
+      "id": "3",
+      "username": "",
+      "email": "gh@gg.com",
+      "name": "www"
+    }
+  ]
+}

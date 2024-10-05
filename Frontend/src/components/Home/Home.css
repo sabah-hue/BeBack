@@ -1,0 +1,19 @@
+@import '../../index.css';
+
+
+.homeSec{
+    background-image:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.5)),url(./backend-dev-language-cypress.png);
+    /* background-image:url(./backend-dev-language-cypress.png); */
+    /* background-attachment: fixed; */
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    color:whitesmoke;
+    width:100%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif    
+}
+

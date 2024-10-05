@@ -1,0 +1,13 @@
+@import '../../index.css';
+
+.footerItem{
+background-color: black;
+color: whitesmoke;
+font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+
+}
+
+strong{
+    color: #e65f78;
+    font-family: "Dancing Script", cursive;
+}
