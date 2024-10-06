@@ -43,8 +43,9 @@ const userSchema = new Schema({
         type:Boolean,
         default:false  
     },
-    code:{
-        type:String
+    newMessages:{
+        type:Object,
+        default:{}
     },
     rooms: [{type: Schema.Types.ObjectId, ref: 'Room'}],
 },{timestamps:true})

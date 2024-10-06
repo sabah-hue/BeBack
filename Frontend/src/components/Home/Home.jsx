@@ -3,10 +3,12 @@ import styles from "./Home.css";
 import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
 import Typed from 'typed.js';
+import { useContext } from 'react';
+import { AuthContext } from '../Context/Context';
 
 
 export default function Home() {
-
+  const { user } = useContext(AuthContext);
   /////////////////////////////
 
   const el = React.useRef(null);
@@ -35,6 +37,7 @@ export default function Home() {
         <div className="col-md-6">
           <h1 className={`${styles.headFont} my-5`}>BeBack</h1>
           <h2>BeBack <span ref={el} /></h2>
+          <h2>{user.name}</h2>
           <div>
             <button className={`btn ${styles.btn1} m-2 px-4 mt-5`}>
               <Link className="text-decoration-none" to="/login">Log in</Link>

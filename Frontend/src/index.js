@@ -8,10 +8,13 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'typed.js';
 import './index.css';
+import { AuthContextProvider } from './components/Context/Context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+    <AuthContextProvider>
     <App />
+    </AuthContextProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
