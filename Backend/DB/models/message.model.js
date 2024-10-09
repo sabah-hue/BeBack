@@ -17,11 +17,16 @@ import mongoose, { Schema } from "mongoose";
  * The schema also includes timestamps for when the message was created and updated.
  */
 const messageSchema = new Schema({
+    chatId:{
+        type:Schema.Types.ObjectId,
+        ref:'Chat',
+        required: true
+    },
     content:{
         type:String,
         required: true
     },
-    userId:{
+    senderId:{
         type:Schema.Types.ObjectId,
         ref:'User',
         require:true
@@ -29,10 +34,6 @@ const messageSchema = new Schema({
     image:{
         type:Object,
         require:true
-    },
-    isDeleted:{
-        type:Boolean,
-        default:false
     },
     ReactOnMessage:[
         {

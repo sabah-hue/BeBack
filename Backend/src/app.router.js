@@ -1,5 +1,6 @@
 import authRouter from './modules/Auth/auth.router.js'
 import userRouter from './modules/User/user.router.js'
+import chatRouter from './modules/Chat/chat.router.js'
 import messageRouter from './modules/Message/message.router.js'
 import interviewRouter from './modules/Interview/interview.router.js'
 import connectDB from '../DB/dbConnection.js'
@@ -17,6 +18,7 @@ const initApp = (app, express)=>{
     // routes
     app.use('/auth', authRouter)
     app.use('/user', userRouter)
+    app.use('/chat', chatRouter)
     app.use('/message', messageRouter)
     app.use('/interview', interviewRouter)
 

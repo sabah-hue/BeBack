@@ -3,6 +3,7 @@ import * as messageController from './controller/message.js'
 
 const router = Router();
 
-router.get("/", messageController.getMessageModule)
+router.post("/", messageController.createMessage)
+router.get("/:chatId", messageController.getAllMessages)
 
 export default router
