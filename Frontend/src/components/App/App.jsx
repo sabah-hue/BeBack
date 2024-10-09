@@ -13,6 +13,7 @@ import { ToastContainer } from 'react-toastify';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import {Online, Offline} from 'react-detect-offline';
 import Chat from '../Chat/Chat';
+import Interview from '../Interview/Interview';
 
 
 function App() {
@@ -47,6 +48,7 @@ let logoutUser = ()=>{
       {path:'login', element:<Login saveUserData={saveUserData}/>},
       {path:'register', element:<Register />},
       {path:'chat', element:<Chat />},
+      {path:'interview', element:<Interview />},
       {path:'profile', element:<ProtectedRoute userData={userData}><Profile userData={userData}/></ProtectedRoute>},
       {path:'dashboard', element:<Dashboard userData={userData}/>}
     ]}

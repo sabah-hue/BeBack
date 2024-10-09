@@ -12,7 +12,8 @@ const interviewSchema = new mongoose.Schema({
         required: true,
     },
     date: {type: Date, required: true},
-    contactEmail: {type: String, required: true}
+    contactEmail: {type: String, required: true},
+    technology: {type: String, required: true},
 },{timestamps:true});
 
 const interviewModel = mongoose.model('Interview' , interviewSchema);

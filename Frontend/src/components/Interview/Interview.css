@@ -1,0 +1,92 @@
+
+.flipcard {
+    margin: 10px;
+    position: relative;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    border-radius: 5px;
+  }
+  
+  .flipcardfront,
+  .flipcardback {
+    width: 350px;
+    min-height: 320px;
+    height: auto;
+    background-color: #000000;
+    background-image:   url('./Hajar.jpg');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+    border-radius: 15px;
+  }
+  
+  .flipcard:nth-of-type(2) .flipcardfront,
+  .flipcard:nth-of-type(2) .flipcardback {
+    background-image: url('./Aya.jpg');
+  }
+
+  
+  .flipcardfront {
+    transform: rotateY(0deg);
+  }
+  
+  .flipcardback {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotateY(180deg);
+  }
+  
+  .flipcardfront::after,
+  .flipcardback::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: #0a0a0a;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+  }
+  
+  .flipcardfront .inner,
+  .flipcardback .inner {
+    width: 100%;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateZ(60px) scale(0.94);
+    z-index: 2;
+  }
+  
+  .inner .icon {
+    width: 80px;
+    margin-bottom: 20px;
+  }
+  
+  .inner h3 {
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 40px;
+    text-transform: capitalize;
+  }
+  
+  .inner p {
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 28px;
+  }
+  
+  .flipcard:hover .flipcardfront {
+    transform: rotateY(-180deg);
+  }
+  
+  .flipcard:hover .flipcardback {
+    transform: rotateY(0deg);
+  }
+  
