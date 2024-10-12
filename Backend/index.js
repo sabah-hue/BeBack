@@ -40,7 +40,7 @@ io.on('connection', (socket) => {
  
     // send messages
     socket.on('sendMessage', async ({room, username, message}) => {
-        const newMessage = await messageModel.create({room, username, message});
+        const newMessage = await messageModel.create({room, username, content: message});
         io.to(room).emit('newMessage', newMessage);
     })
 

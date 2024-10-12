@@ -19,6 +19,7 @@ export default function Chat() {
     // Listen for messages
     socket.on('newMessage', (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
+      window.scrollTo(0, document.body.scrollHeight);
     });
 
     // Listen for room data (user list)
@@ -36,9 +37,11 @@ export default function Chat() {
   const handleMessageSubmit = (e) => {
     e.preventDefault();
     const msg = e.target.msg.value;
+    console.log(msg);
     if (msg) {
       socket.emit('sendMessage', { room, username, message: msg });
-      e.target.msg.value = ''; // Clear input after sending
+      window.scrollTo(0, document.body.scrollHeight);
+      e.target.msg.value = ''; // Clear input after sending msg
     }
   };
 
@@ -62,7 +65,8 @@ export default function Chat() {
         <div className="chat-messages">
           {messages.map((msg, index) => (
             <div key={index}>
-              <strong>{msg.username}: </strong>{msg.message}
+              <strong>{msg.username}: </strong>
+              <span>{msg.content}</span>
             </div>
           ))}
         </div>
