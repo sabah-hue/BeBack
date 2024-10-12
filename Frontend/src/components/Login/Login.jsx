@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { jwtDecode } from 'jwt-decode';
 import '../Register/Register.css';
 
 
@@ -43,7 +44,7 @@ export default function Login() {
       try {
         // start loading
         setLoading(true);
-        const {data} = await axios.post('http://localhost:5000/auth/login', values);
+        const {data} = await axios.post('http://localhost:5000/auth/login', values)
         console.log(data);
         // Handle successful registration (chesk success message, redirect)
 
@@ -54,6 +55,10 @@ export default function Login() {
         }
 
         if (data.message === 'login success') {
+          //localStorage
+          localStorage.setItem("token", data.token);
+          const user = jwtDecode(data.token);
+          // document.cookie = `token=${response.data.token}; Path=/; HttpOnly; SameSite=Strict`;
           notify(data.message, 'success');
           navigate('/');
         }
@@ -100,4 +105,3 @@ export default function Login() {
 
   )
 }
-

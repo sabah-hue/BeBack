@@ -8,7 +8,7 @@ import { globalErrorHandling } from './utils/errorHandler.js'
 
 const initApp = (app, express)=>{
     app.use(express.json());
-    app.use(express.urlencoded({ extended: true }));
+    // app.use(express.urlencoded({ extended: true }));
 
     // route to check connection and server status
     app.get('/' , (req , res)=>{

@@ -13,6 +13,9 @@ import { ToastContainer } from 'react-toastify';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import {Online, Offline} from 'react-detect-offline';
 import Chat from '../Chat/Chat';
+import ChatTest from '../Chat/Chat';
+import Base from '../Chat/Base';
+
 import Interview from '../Interview/Interview';
 
 
@@ -48,6 +51,7 @@ let logoutUser = ()=>{
       {path:'login', element:<Login saveUserData={saveUserData}/>},
       {path:'register', element:<Register />},
       {path:'chat', element:<Chat />},
+      {path:'base', element:<Base />},
       {path:'interview', element:<Interview />},
       {path:'profile', element:<ProtectedRoute userData={userData}><Profile userData={userData}/></ProtectedRoute>},
       {path:'dashboard', element:<Dashboard userData={userData}/>}

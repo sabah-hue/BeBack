@@ -19,7 +19,7 @@ export default function Navbar({userData, logoutUser}) {
       </li>
 
       <li className="nav-item px-3">
-        <Link className="nav-link" to="chat">Chat</Link>
+        <Link className="nav-link" to="base">Chat</Link>
       </li>
 
       <li className="nav-item px-3">

@@ -5,7 +5,6 @@ const roomSchema = new Schema({
         type:String,
         require:true
     },
-    messages:[{type:Schema.Types.ObjectId,ref:'Message'}],
 },{timestamps:true})
 
 const roomModel = mongoose.model('Room' , roomSchema);

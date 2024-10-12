@@ -9,6 +9,7 @@ import { AuthContext } from '../Context/Context';
 
 export default function Home() {
   const { user } = useContext(AuthContext);
+
   /////////////////////////////
 
   const el = React.useRef(null);

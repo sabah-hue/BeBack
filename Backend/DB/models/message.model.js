@@ -17,40 +17,18 @@ import mongoose, { Schema } from "mongoose";
  * The schema also includes timestamps for when the message was created and updated.
  */
 const messageSchema = new Schema({
-    chatId:{
-        type:Schema.Types.ObjectId,
-        ref:'Chat',
-        required: true
+    roomId:{
+        type:String,
+        required:true
     },
     content:{
         type:String,
         required: true
     },
-    senderId:{
-        type:Schema.Types.ObjectId,
-        ref:'User',
+    username:{
+        type:String,
         require:true
-    },
-    image:{
-        type:Object,
-        require:true
-    },
-    ReactOnMessage:[
-        {
-            userId:{
-                type:Schema.Types.ObjectId,
-                ref:'User'
-            },
-            react:{
-                type:String,
-                enum:['like','unlike','love','notReacted'],
-                default:'notReacted'
-            }
-        }
-    ],
-    like:[{type:Schema.Types.ObjectId,ref:'User'}],
-    unlike:[{ type:Schema.Types.ObjectId, ref:'User'}],
-    message:[{type:Schema.Types.ObjectId,ref:'Message'}]
+    }
 },{timestamps:true})
 
 const messageModel = mongoose.models.Message || mongoose.model('Message' , messageSchema);
