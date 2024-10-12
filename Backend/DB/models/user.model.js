@@ -47,7 +47,11 @@ const userSchema = new Schema({
         type:Object,
         default:{}
     },
-    rooms: [{type: Schema.Types.ObjectId, ref: 'Room'}],
+    username: String,
+    rooms: {
+        type: [String],
+        default: []
+    }
 },{timestamps:true})
 
 const userModel = mongoose.models.User || mongoose.model('User' , userSchema);

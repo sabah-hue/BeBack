@@ -51,7 +51,7 @@ let logoutUser = ()=>{
       {path:'login', element:<Login saveUserData={saveUserData}/>},
       {path:'register', element:<Register />},
       {path:'chat', element:<Chat />},
-      {path:'base', element:<Base />},
+      {path:'base', element:<Base userData={userData}/>},
       {path:'interview', element:<Interview />},
       {path:'profile', element:<ProtectedRoute userData={userData}><Profile userData={userData}/></ProtectedRoute>},
       {path:'dashboard', element:<Dashboard userData={userData}/>}

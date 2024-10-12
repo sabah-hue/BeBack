@@ -17,7 +17,7 @@ import mongoose, { Schema } from "mongoose";
  * The schema also includes timestamps for when the message was created and updated.
  */
 const messageSchema = new Schema({
-    roomId:{
+    room:{
         type:String,
         required:true
     },

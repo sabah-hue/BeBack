@@ -1,86 +1,72 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import io from 'socket.io-client'; // Import socket.io
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import io from 'socket.io-client';
 import './Chat.css';
 
-const socket = io('http://localhost:5000'); // Replace with your backend server URL
+const socket = io('http://localhost:5000'); // Adjust to your server URL
 
 export default function Chat() {
-  const [messages, setMessages] = useState([]); // Chat messages
-  const [message, setMessage] = useState(''); // Current input message
-  const [roomName, setRoomName] = useState(''); // Room name
-  const [users, setUsers] = useState([]); // List of users in the room
-  const navigate = useNavigate();
   const location = useLocation();
-  const chatMessagesRef = useRef(null); // For scrolling chat messages
-
-  // Extract username and room from URL query params
-  const searchParams = new URLSearchParams(location.search);
-  const username = searchParams.get('username');
-  const room = searchParams.get('room');
+  const username = new URLSearchParams(location.search).get('username');
+  const room = new URLSearchParams(location.search).get('room');
+  const [messages, setMessages] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    // Listen for room and user info (since joinRoom event is already emitted in Base)
-    socket.on('roomUsers', ({ room, users }) => {
-      setRoomName(room);
+    // Emit joinRoom event
+    socket.emit('joinRoom', { username, room });
+
+    // Listen for messages
+    socket.on('newMessage', (message) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
+
+    // Listen for room data (user list)
+    socket.on('roomData', ({ users }) => {
       setUsers(users);
     });
 
-    // Listen for new messages
-    socket.on('newMessage', (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-      chatMessagesRef.current.scrollTop = chatMessagesRef.current.scrollHeight; // Auto-scroll to bottom
-    });
-
-    // Cleanup when component unmounts (leave room)
     return () => {
-      socket.emit('leaveRoom');
-      socket.off(); // Clean up socket listeners
+      socket.off('newMessage');
+      socket.off('roomData');
+      socket.emit('leaveRoom', { username, room }); // Optionally leave room on unmount
     };
-  }, [room, username]);
+  }, [username, room]);
 
   const handleMessageSubmit = (e) => {
     e.preventDefault();
-    if (message.trim()) {
-      // Emit the message to the server
-      socket.emit('sendMessage', { roomId: room, username, message });
-      setMessage(''); // Clear message input
+    const msg = e.target.msg.value;
+    if (msg) {
+      socket.emit('sendMessage', { room, username, message: msg });
+      e.target.msg.value = ''; // Clear input after sending
     }
-  };
-
-  const handleLeaveRoom = () => {
-    socket.emit('leaveRoom');
-    navigate('/'); // Navigate back to Base component
   };
 
   return (
     <div className="chat-container">
       <header className="chat-header">
         <h1><i className="fas fa-smile"></i> BeBack Chat</h1>
-        <button id="leave-btn" className="btn" onClick={handleLeaveRoom}>Leave Room</button>
+        <a id="leave-btn" className="btn">Leave Room</a>
       </header>
-
       <main className="chat-main">
         <div className="chat-sidebar">
           <h3><i className="fas fa-comments"></i> Room Name:</h3>
-          <h2 id="room-name">{roomName}</h2>
+          <h2 id="room-name">{room}</h2>
           <h3><i className="fas fa-users"></i> Users</h3>
-          <ul id="users">
+          <ul>
             {users.map((user, index) => (
               <li key={index}>{user.username}</li>
             ))}
           </ul>
         </div>
-        <div className="chat-messages" ref={chatMessagesRef}>
+        <div className="chat-messages">
           {messages.map((msg, index) => (
-            <div key={index} className="message">
-              <p className="meta">{msg.username} <span>{new Date(msg.createdAt).toLocaleTimeString()}</span></p>
-              <p className="text">{msg.content}</p>
+            <div key={index}>
+              <strong>{msg.username}: </strong>{msg.message}
             </div>
           ))}
         </div>
       </main>
-
       <div className="chat-form-container">
         <form id="chat-form" onSubmit={handleMessageSubmit}>
           <input
@@ -89,8 +75,6 @@ export default function Chat() {
             placeholder="Enter Message"
             required
             autoComplete="off"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
           />
           <button className="btn ms-2"><i className="fas fa-paper-plane"></i></button>
         </form>

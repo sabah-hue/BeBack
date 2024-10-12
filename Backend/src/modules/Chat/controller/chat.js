@@ -52,13 +52,12 @@ export const deleteRoom = async (req, res, next) => {
 }
 // join room
 export const joinRoom = async (req, res, next) => {
-    const { username, room} = req.query;
-    const { email } = req.body;
+    const { username, room, id } = req.body;
     const joinRoom = await roomModel.findOne({name: room});
     if (!joinRoom) {
         return res.status(400).json({message: 'no rooms available by this name'});
     }
-    const user = await userModel.findOneAndUpdate({email}, {$addToSet: { rooms: joinRoom._id }});
+    const user = await userModel.findOneAndUpdate({_id: id}, {$addToSet: { rooms: room }, username});
     if (user) {
         return res.status(200).json({message: 'join successfully', username});
     }

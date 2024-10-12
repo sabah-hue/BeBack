@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Chat.css';
-import io from 'socket.io-client'; // Import socket.io
+// import io from 'socket.io-client'; // Import socket.io
 import axios from 'axios'; // You still use axios for fetching rooms
 
-const socket = io('http://localhost:5000/chat'); // Replace with your server URL
+// const socket = io('http://localhost:5000/chat'); // Replace with your server URL
 
-export default function Base() {
+export default function Base({userData}) {
   const [username, setUsername] = useState('');
   const [room, setRoom] = useState('');
   const [rooms, setRooms] = useState([]); // State for storing rooms fetched from the database
@@ -29,11 +29,14 @@ export default function Base() {
     fetchRooms();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (username && room) {
       // Emit the joinRoom event using socket.io
-      socket.emit('joinRoom', { username, room });
+      // socket.emit('joinRoom', { username, room });
+      // by axios instead of socket
+      console.log(userData);
+      await axios.post('http://localhost:5000/chat/room/join', {username, room, id: userData.id});
       navigate(`/chat?username=${username}&room=${room}`); // Navigate to Chat with room & username
     }
   };
