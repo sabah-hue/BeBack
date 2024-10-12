@@ -6,7 +6,6 @@ import { Server } from "socket.io";
 import messageModel from './DB/models/message.model.js';
 import userModel from './DB/models/user.model.js';
 
-
 const app = express();
 app.use(cors({
     origin: '*',
@@ -17,35 +16,46 @@ app.use(cors({
 dotenv.config()
 const port = process.env.PORT;
 
-//
+// Initialize routes and middleware
 initApp(app, express);
-//
-let server = app.listen(port, ()=>{ console.log(`running on port ${port}`)})
-// socket io
+
+// Start the server
+let server = app.listen(port, () => {
+    console.log(`running on port ${port}`);
+});
+
+// Initialize Socket.io
 const io = new Server(server, {
     cors: '*'
 });
 
 io.on('connection', (socket) => {
-    console.log('new user connected');
+    console.log('New user connected');
     console.log(socket.id);
-    // join room
-    socket.on('joinRoom', async ({username, room}) => {
+
+    // Join room event
+    socket.on('joinRoom', async ({ username, room }) => {
         socket.join(room);
         console.log(`${username} joined room ${room}`);
-        // users in rooms
-        const roomUsers = await userModel.find({rooms: {$in: [room]}});
-        io.to(room).emit('roomData', {users: roomUsers});
-    })
- 
-    // send messages
-    socket.on('sendMessage', async ({room, username, message}) => {
-        const newMessage = await messageModel.create({room, username, content: message});
-        io.to(room).emit('newMessage', newMessage);
-    })
+        
+        // Get users in room and emit to all users in the room
+        const roomUsers = await userModel.find({ rooms: { $in: [room] } });
+        io.to(room).emit('roomData', { users: roomUsers });
+    });
 
-    // user disconnected
+    // Send message event
+    socket.on('sendMessage', async ({ room, username, message }) => {
+        const newMessage = await messageModel.create({ room, username, content: message });
+        io.to(room).emit('newMessage', newMessage);
+    });
+
+    // Typing event
+    socket.on('typing', ({ username, room }) => {
+        socket.to(room).emit('userTyping', { username });
+    });
+
+    // Handle user disconnect
     socket.on('disconnect', () => {
-        console.log('user disconnected');
-    })
-  });
+        console.log('User disconnected');
+    });
+});
