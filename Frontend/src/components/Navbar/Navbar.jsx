@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 export default function Navbar({userData, logoutUser}) {
+  console.log(userData);
   return (
 
 <nav class="navbar navbar-expand-md bg-main-light navbar-light  py-3">

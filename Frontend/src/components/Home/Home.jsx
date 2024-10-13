@@ -1,22 +1,18 @@
 import React from "react";
-import styles from "./Home.css";
 import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
 import Typed from 'typed.js';
-import { useContext } from 'react';
-import { AuthContext } from '../Context/Context';
+import "./Home.css";
+import Contact from './Contact'
+import ParticleBackground from './ParticleBackground'
 
 
 export default function Home() {
-  const { user } = useContext(AuthContext);
-
-  /////////////////////////////
-
   const el = React.useRef(null);
 
   React.useEffect(() => {
     const typed = new Typed(el.current, {
-      strings: ['and do HARD things...', ' and do HARD things...'],
+      strings: ['do HARD things...', 'welcome to your home...', 'strong community ...', 'have a nice time ...'],
       smartBackspace: true,
       loop: true,
       loopCount: Infinity,
@@ -24,56 +20,178 @@ export default function Home() {
     });
 
     return () => {
-      // Destroy Typed instance during cleanup to stop animation
       typed.destroy();
     };
   }, []);
 
+
   return (
-    <>
-  
-      {/* ///////////////Header section /////////////// */}
-      <div className={`homeSec`}>
-
-        <div className="col-md-6">
-          <h1 className={`${styles.headFont} my-5`}>BeBack</h1>
-          <h2>BeBack <span ref={el} /></h2>
-          <h2>{user.name}</h2>
-          <div>
-            <button className={`btn ${styles.btn1} m-2 px-4 mt-5`}>
-              <Link className="text-decoration-none" to="/login">Log in</Link>
-            </button>
-            <button className={`btn ${styles.btn2} m-2 px-3 mt-5`}>
-              <Link  className="text-decoration-none" to="/register">Register</Link>
-            </button>
-          </div>
-
-        </div>
-
-        <div  className="col-md-6">
-          
+    <>      
+      {/* Header Section */}
+      <div className="homeSec text-center">
+        <ParticleBackground />
+        <h1 className="headFont my-5">BeBack</h1>
+        <h2 style="color: orange;">
+          BeBack <span className="typer" ref={el} />
+        </h2>
+        <div>
+          <button className="btn btn1 m-2 px-4 mt-5">
+            <Link className="text-decoration-none" to="/login">Log in</Link>
+          </button>
+          <button className="btn btn2 m-2 px-3 mt-5">
+            <Link className="text-decoration-none" to="/register">Register</Link>
+          </button>
         </div>
       </div>
-      {/* ////////////////////// About section ///////////////////// */}
-      <h1>ABOUT US</h1>
-      <p>Lorem ipsum dolor sit amet.</p>
-      {/* =================== End section ====================== */}
 
-      {/* //////////////////////////// Chat section ////////////////////////// */}
-      <h1>CHAT</h1>
-      <p>Lorem ipsum dolor sit amet.</p>
+      {/* About Us Section */}
+      <div className="container my-5">
+        <h1 className="text-center">ABOUT US</h1>
+        <hr className="w-25 m-auto my-3" />
+        <div className="row">
+    <div className="col-md-6 text-center">
 
-      {/* ===================== End Chat section =====================*/}
+    <div className='flipcard'>
+      <div className='flipcardfront'>
+        <div className='inner'>
+          <h2 className="text-white">Join chat rooms</h2>
+        </div>
+      </div>
+      <div className='flipcardback'>
+        <div className='inner'>
+        <h2 className="text-white">pick Interview</h2>
+        </div>
+      </div>
+    </div>
+            
+    </div>
+    <div className="col-md-6 d-flex align-items-center">
+      <div>
+        <h1 className="text-center">BeBack</h1>
+        <p>
+          At BeBack, we strive to build a vibrant community for backend developers. Our mission is to facilitate collaboration, share knowledge, and foster growth through engaging discussions and support. Whether you’re looking to enhance your skills or connect with like-minded individuals, BeBack is the place for you.
+        </p>
+      </div>
+    </div>
+  </div>
 
-      {/* //////////////////  Interview section ///////////////// */}
-      <h1>INTERVIEW</h1>
 
-      {/* =====================  END Interview section =================== */}
+        <div className="row">
+          <div className="col-md-4">
+            <div className="card shadow-lg">
+              <div className="card-body">
+                <h5 className="card-title">Our Mission</h5>
+                <p className="card-text">To create a community where backend developers can connect, collaborate, and grow their skills.</p>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4">
+            <div className="card shadow-lg">
+              <div className="card-body">
+                <h5 className="card-title">Our Vision</h5>
+                <p className="card-text">Empowering developers to challenge and innovate in a supportive environment.</p>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4">
+            <div className="card shadow-lg">
+              <div className="card-body">
+                <h5 className="card-title ">Our Values</h5>
+                <p className="card-text">Integrity, Collaboration, Innovation, and Growth are important to create a strong community </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      {/* ///////////////////// Footer section ///////////////////// */}
+      {/* Chat Section */}
+      <div className=" my-5 chat py-3">
+      <div className="container my-5 chat">
+        <h1 className="text-center">CHAT</h1>
+        <hr className="w-25 m-auto my-3" />
+        <div className="text-center">
+          <p>
+            Meet expert and professional engineers ,select your technology and Enter chat room.
+            <button className="btn btn2 m-2 px-3 mt-5">
+            <Link className="text-decoration-none" to="/base">Join chat room</Link>
+            </button>
+          </p>
+        </div>
+        <div className="row">
+          <div className="col-md-4">
+            <div className="card shadow-lg">
+              <div className="card-body">
+                <h5 className="card-title">Join Discussions</h5>
+                <p className="card-text">Engage in real-time discussions with fellow developers in dedicated rooms.</p>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4">
+            <div className="card shadow-lg">
+              <div className="card-body">
+                <h5 className="card-title">Share Knowledge</h5>
+                <p className="card-text">Exchange ideas, tips, and best practices to enhance your skills.</p>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4">
+            <div className="card shadow-lg">
+              <div className="card-body">
+                <h5 className="card-title">Get Support</h5>
+                <p className="card-text">Seek help from experienced developers for your projects and challenges.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      {/* Interview Section */}
+      <div className="container my-5">
+        <h1 className="text-center">INTERVIEW</h1>
+        <hr className="w-25 m-auto my-3" />
+        <div className="text-center">
+          <p>
+            Don't waste the chance, fill your form and practice with professional engineers.
+            <button className="btn btn2 m-2 px-3 mt-5">
+            <Link className="text-decoration-none" to="/interview">interview section</Link>
+          </button>
+          </p>
+        </div>
+        <div className="row">
+          <div className="col-md-4">
+            <div className="card shadow-lg">
+              <div className="card-body">
+                <h5 className="card-title">Mock Interviews</h5>
+                <p className="card-text">Prepare for your interviews with simulated sessions and feedback.</p>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4">
+            <div className="card shadow-lg">
+              <div className="card-body">
+                <h5 className="card-title">Interview Tips</h5>
+                <p className="card-text">Learn strategies and tips to excel in technical interviews.</p>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4">
+            <div className="card shadow-lg">
+              <div className="card-body">
+                <h5 className="card-title">Real Experiences</h5>
+                <p className="card-text">Gain insights from others' interview experiences and learn from their stories.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* contact us */}
+      {/* Contact Us Section */}
+    <Contact />
+    <ParticleBackground />
+      {/* Footer Section */}
       <Footer />
-      {/* ===================== End Footer section =============== */}
- 
     </>
   );
 }

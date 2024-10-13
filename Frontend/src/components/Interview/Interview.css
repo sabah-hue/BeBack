@@ -4,30 +4,34 @@
     position: relative;
     perspective: 1000px;
     transform-style: preserve-3d;
-    border-radius: 5px;
   }
   
-  .flipcardfront,
-  .flipcardback {
-    width: 350px;
-    min-height: 320px;
+  .flipcardfront {
+    width: 100%;
+    min-height: 300px;
     height: auto;
     background-color: #000000;
-    background-image:   url('./Hajar.jpg');
+    background-image:   url('./istockphoto-1363894897-1024x1024.jpg');
     background-size: cover;
     background-position: center;
     text-align: center;
     backface-visibility: hidden;
     transform-style: preserve-3d;
     transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
-    border-radius: 15px;
   }
-  
-  .flipcard:nth-of-type(2) .flipcardfront,
-  .flipcard:nth-of-type(2) .flipcardback {
-    background-image: url('./Aya.jpg');
+  .flipcardback {
+    width: 100%;
+    min-height: 300px;
+    height: auto;
+    background-color: #000000;
+    background-image:   url('./pexels-goumbik-590044.jpg');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
   }
-
   
   .flipcardfront {
     transform: rotateY(0deg);

@@ -1,11 +1,11 @@
 @import '../../index.css';
 
 
-.homeSec{
+/* .homeSec{
     background-image:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.5)),url(./backend-dev-language-cypress.png);
     /* background-image:url(./backend-dev-language-cypress.png); */
     /* background-attachment: fixed; */
-    background-position: center;
+    /* background-position: center;
     background-size: cover;
     height: 100vh;
     color:whitesmoke;
@@ -15,5 +15,179 @@
     align-items: center;
     justify-content: center;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif    
-}
+} */
 
+.homeSec {
+    position: relative;
+    height: 100vh; /* Full screen height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #000; /* Ensure dark background to contrast with particles */
+    z-index: 1; /* Ensure content is above particles */
+  }
+  
+  .homeSec h1, .homeSec h2, .homeSec button {
+    z-index: 2; /* Ensure these elements are above the particles */
+  }
+  
+  .typer {
+    font-family: "Dancing Script", cursive;
+    color: #fff; /* Set color to white to contrast the dark background */
+  }
+  
+  .particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Particles will be behind the content */
+  }
+  /* ////// */
+  
+  .headFont {
+    font-family: 'Arial', sans-serif; /* Example font */
+    font-size: 3rem; /* Larger font size */
+  }
+  
+  .card {
+    margin: 20px 0; /* Margin between cards */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Card shadow */
+    transition: transform 0.2s; /* Animation on hover */
+  }
+  
+  .card:hover {
+    transform: scale(1.05); /* Slightly enlarge card on hover */
+  }
+  
+  .btn1 {
+    background-color: #007bff; /* Button color */
+    color: white; /* Text color */
+  }
+  
+  .btn2 {
+    background-color: #28a745; /* Button color */
+    color: white; /* Text color */
+  }
+  
+  h1 {
+    margin-top: 40px; /* Space above headings */
+    font-family: "Dancing Script", cursive;
+    /* color: #0aad0a !important; */
+  }
+
+  h5 {
+    color: #0aad0a !important;
+    font-weight: bold;
+    font-size: larger;
+    font-family: "Dancing Script", cursive;
+  }
+
+  /* .typer {
+    font-family: "Dancing Script", cursive;
+    color: #0aad0a !important;
+  }
+   */
+  .chat {
+    background-color: #f8f9fa; /* Light background for the header */
+  }
+
+  /* flip card */
+  .flipcard {
+    margin: 10px;
+    position: relative;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    border-radius: 5px;
+  }
+  
+  .flipcardfront {
+    width: 100%;
+    min-height: 300px;
+    height: auto;
+    background-color: #000000;
+    background-image:   url('./istockphoto-1363894897-1024x1024.jpg');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+  }
+  .flipcardback {
+    width: 100%;
+    min-height: 300px;
+    height: auto;
+    background-color: #000000;
+    background-image:   url('./pexels-goumbik-590044.jpg');
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+  }
+  
+  .flipcardfront {
+    transform: rotateY(0deg);
+  }
+  
+  .flipcardback {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: rotateY(180deg);
+  }
+  
+  .flipcardfront::after,
+  .flipcardback::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: #0a0a0a;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0.5;
+  }
+  
+  .flipcardfront .inner,
+  .flipcardback .inner {
+    width: 100%;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateZ(60px) scale(0.94);
+    z-index: 2;
+  }
+  
+  .inner .icon {
+    width: 80px;
+    margin-bottom: 20px;
+  }
+  
+  .inner h3 {
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 40px;
+    text-transform: capitalize;
+  }
+  
+  .inner p {
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 28px;
+  }
+  
+  .flipcard:hover .flipcardfront {
+    transform: rotateY(-180deg);
+  }
+  
+  .flipcard:hover .flipcardback {
+    transform: rotateY(0deg);
+  }
+  
