@@ -81,7 +81,7 @@ export const login = async (req, res, next)=>{
 
     await check.save();
     // return token to frontend
-    const token = generateToken({payload:{id: check._id, isLoggedIn: true, role: check.role}});
+    const token = generateToken({payload:{id: check._id, isLoggedIn: true, role: check.role, name: check.name.firstName}});
     return res.status(200).json({message: "login success", token})
 }
 

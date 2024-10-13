@@ -6,6 +6,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Dashboard from '../Dashboard/Dashboard';
 import Profile from '../Profile/Profile';
+import UpdateProfile from '../Profile/UpdateProfile';
 import Notfound from '../Notfound/Notfound';
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from 'react';
@@ -13,7 +14,6 @@ import { ToastContainer } from 'react-toastify';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import {Online, Offline} from 'react-detect-offline';
 import Chat from '../Chat/Chat';
-import ChatTest from '../Chat/Chat';
 import Base from '../Chat/Base';
 
 import Interview from '../Interview/Interview';
@@ -47,13 +47,14 @@ let logoutUser = ()=>{
 //  routes
   let routes = createBrowserRouter([
     {path:'/', element:<Layout userData={userData} logoutUser={logoutUser}/>, errorElement:<Notfound />, children:[
-      {index:true, element:<Home />},
+      {index:true, element:<Home userData={userData}/>},
       {path:'login', element:<Login saveUserData={saveUserData}/>},
       {path:'register', element:<Register />},
-      {path:'chat', element:<Chat />},
-      {path:'base', element:<Base userData={userData}/>},
-      {path:'interview', element:<Interview />},
-      {path:'profile', element:<ProtectedRoute userData={userData}><Profile userData={userData}/></ProtectedRoute>},
+      {path:'chat', element:<ProtectedRoute userData={userData}><Chat /></ProtectedRoute>},
+      {path:'base', element:<ProtectedRoute userData={userData}><Base userData={userData}/></ProtectedRoute>},
+      {path:'interview', element:<ProtectedRoute userData={userData}><Interview /></ProtectedRoute>},
+      {path:'profile/:id', element:<ProtectedRoute userData={userData}><Profile userData={userData}/></ProtectedRoute>},
+      {path:'update/:id', element:<ProtectedRoute userData={userData}><UpdateProfile userData={userData}/></ProtectedRoute>},
       {path:'dashboard', element:<Dashboard userData={userData}/>}
     ]}
   ])

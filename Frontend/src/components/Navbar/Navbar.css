@@ -1,0 +1,53 @@
+.homeText {
+    font-family: "Dancing Script", cursive;
+    color: #0aad0a !important;
+    font-weight: bold;
+    font-size: larger;
+}
+.navbar {
+    background-color: #f8f9fa; /* Light background color */
+    transition: background-color 0.3s, box-shadow 0.3s;
+  }
+  
+  .navbar:hover {
+    background-color: #e9ecef; /* Slightly darker on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+  }
+  
+  .nav-link {
+    color: #495057; /* Default text color */
+    transition: color 0.2s, transform 0.2s; /* Smooth transitions */
+  }
+  
+  .nav-link:hover {
+    color: #0aad0a; /* Change text color on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+  }
+  
+  .nav-item {
+    position: relative; /* Required for the animated underline */
+  }
+  
+  .nav-item::after {
+    content: '';
+    display: block;
+    height: 2px;
+    width: 0;
+    background: #0aad0a; /* Underline color */
+    transition: width 0.3s ease, background-color 0.3s ease; /* Smooth transition for underline */
+    position: absolute;
+    left: 50%;
+    bottom: -4px; /* Position below the text */
+    transform: translateX(-50%);
+  }
+  
+  .nav-item:hover::after {
+    width: 80%; /* Expand underline on hover */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 576px) {
+    .nav-item {
+      text-align: center; /* Center items in mobile view */
+    }
+  }

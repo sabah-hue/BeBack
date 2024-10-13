@@ -22,7 +22,8 @@ const userSchema = new Schema({
         require:true
     }, 
     profilePic:{
-        type:Object
+        type: String,
+        default: 'https://img.freepik.com/premium-photo/white-plate-with-womans-face-it_1221953-49225.jpg?w=740'
     },
     role:{
         type:String,

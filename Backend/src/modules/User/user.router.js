@@ -5,6 +5,7 @@ import {asyncErrorHandler} from "../../utils/errorHandler.js";
 
 const router = Router();
 
-router.get("/profile", auth, asyncErrorHandler(userController.userProfile))
+router.get("/profile/:id", asyncErrorHandler(userController.userProfile))
+router.post("/contact", asyncErrorHandler(userController.sendMessage))
 
 export default router
