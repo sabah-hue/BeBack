@@ -1,39 +1,31 @@
-@import '../../index.css';
-
 .homeSec {
-    background-color: #f8f9fa; /* Light background for the header */
-    padding: 60px 0; /* Padding for spacing */
+    background-color: #f8f9fa;
+    padding: 60px 0;
   }
   
   .headFont {
-    font-family: 'Arial', sans-serif; /* Example font */
-    font-size: 3rem; /* Larger font size */
+    font-family: 'Arial', sans-serif;
+    font-size: 3rem;
   }
   
   .card {
-    margin: 20px 0; /* Margin between cards */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Card shadow */
-    transition: transform 0.2s; /* Animation on hover */
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
   }
   
   .card:hover {
-    transform: scale(1.05); /* Slightly enlarge card on hover */
+    transform: scale(1.06); 
   }
   
-  .btn1 {
-    background-color: #007bff; /* Button color */
-    color: white; /* Text color */
-  }
-  
-  .btn2 {
-    background-color: #28a745; /* Button color */
-    color: white; /* Text color */
+  .btn1, .btn2 {
+    background-color: #007bff;
+    color: white;
   }
   
   h1 {
-    margin-top: 40px; /* Space above headings */
+    margin-top: 40px;
     font-family: "Dancing Script", cursive;
-    /* color: #0aad0a !important; */
   }
 
   h5 {
@@ -49,7 +41,7 @@
   }
   
   .chat {
-    background-color: #f8f9fa; /* Light background for the header */
+    background-color: #f8f9fa;
   }
 
   /* flip card */

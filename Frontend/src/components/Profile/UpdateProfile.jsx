@@ -8,6 +8,8 @@ export default function UpdateProfile({ userData }) {
   const [updateUser, setUpdateUser] = useState({
     firstName: "",
     lastName: "",
+    oldPassword: "",
+    newPassword: "",
     email: "",
     profilePic: "",
   });

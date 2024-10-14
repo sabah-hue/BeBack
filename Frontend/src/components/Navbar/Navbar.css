@@ -5,27 +5,27 @@
     font-size: larger;
 }
 .navbar {
-    background-color: #f8f9fa; /* Light background color */
+    background-color: #f8f9fa; 
     transition: background-color 0.3s, box-shadow 0.3s;
   }
   
   .navbar:hover {
-    background-color: #e9ecef; /* Slightly darker on hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect on hover */
+    background-color: #e9ecef; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
   .nav-link {
-    color: #495057; /* Default text color */
-    transition: color 0.2s, transform 0.2s; /* Smooth transitions */
+    color: #495057;
+    transition: color 0.2s, transform 0.2s;
   }
   
   .nav-link:hover {
-    color: #0aad0a; /* Change text color on hover */
-    transform: translateY(-2px); /* Slight lift effect */
+    color: #0aad0a;
+    transform: translateY(-2px);
   }
   
   .nav-item {
-    position: relative; /* Required for the animated underline */
+    position: relative;
   }
   
   .nav-item::after {
@@ -33,8 +33,8 @@
     display: block;
     height: 2px;
     width: 0;
-    background: #0aad0a; /* Underline color */
-    transition: width 0.3s ease, background-color 0.3s ease; /* Smooth transition for underline */
+    background: #0aad0a;
+    transition: width 0.3s ease, background-color 0.3s ease; 
     position: absolute;
     left: 50%;
     bottom: -4px; /* Position below the text */
@@ -42,12 +42,12 @@
   }
   
   .nav-item:hover::after {
-    width: 80%; /* Expand underline on hover */
+    width: 80%;
   }
   
   /* Responsive Design */
   @media (max-width: 576px) {
     .nav-item {
-      text-align: center; /* Center items in mobile view */
+      text-align: center;
     }
   }
