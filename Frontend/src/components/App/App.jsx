@@ -50,7 +50,7 @@ let logoutUser = ()=>{
       {index:true, element:<Home userData={userData}/>},
       {path:'login', element:<Login saveUserData={saveUserData}/>},
       {path:'register', element:<Register />},
-      {path:'chat', element:<ProtectedRoute userData={userData}><Chat /></ProtectedRoute>},
+      {path:'chat', element:<ProtectedRoute userData={userData}><Chat userData={userData}/></ProtectedRoute>},
       {path:'base', element:<ProtectedRoute userData={userData}><Base userData={userData}/></ProtectedRoute>},
       {path:'interview', element:<ProtectedRoute userData={userData}><Interview /></ProtectedRoute>},
       {path:'profile/:id', element:<ProtectedRoute userData={userData}><Profile userData={userData}/></ProtectedRoute>},

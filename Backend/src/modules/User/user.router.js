@@ -7,5 +7,6 @@ const router = Router();
 
 router.get("/profile/:id", asyncErrorHandler(userController.userProfile))
 router.post("/contact", asyncErrorHandler(userController.sendMessage))
+router.post("/chat/update", asyncErrorHandler(userController.updateUserChat))
 
 export default router

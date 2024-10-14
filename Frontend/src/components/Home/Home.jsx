@@ -41,10 +41,10 @@ const notify = (message, type) => toast['warning']('please, login first ...');
               <>
               </>
             ) : (<div>
-          <button className="btn btn1 m-2 px-4 mt-5">
+          <button className="btn btn-warning m-2 px-4 mt-5">
             <Link className="text-decoration-none" to="/login">Log in</Link>
           </button>
-          <button className="btn btn2 m-2 px-3 mt-5">
+          <button className="btn btn-outline-warning m-2 px-3 mt-5">
             <Link className="text-decoration-none" to="/register">Register</Link>
           </button>
         </div> )}

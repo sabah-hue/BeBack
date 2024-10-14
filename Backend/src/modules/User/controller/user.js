@@ -27,3 +27,8 @@ export const sendMessage = async (req, res, next) => {
     return res.status(200).json({message: "we will contact you soon ..."})
 
 }
+
+// update profile pic and Bio chat
+export const updateUserChat = async (req, res, next) => {
+    
+}

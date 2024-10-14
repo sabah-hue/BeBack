@@ -36,11 +36,18 @@ io.on('connection', (socket) => {
     // Join room event
     socket.on('joinRoom', async ({ username, room }) => {
         socket.join(room);
+        // io.to(room).emit('note', { data: username });
         console.log(`${username} joined room ${room}`);
         
         // Get users in room and emit to all users in the room
         const roomUsers = await userModel.find({ rooms: { $in: [room] } });
         io.to(room).emit('roomData', { users: roomUsers });
+
+        // fetch old messages in room
+        const messages = await messageModel.find({room}).sort({createdAt: 1});
+
+        // emit old messages to frontend
+        socket.emit('oldMessages', messages);
     });
 
     // Send message event
@@ -53,6 +60,13 @@ io.on('connection', (socket) => {
     socket.on('typing', ({ username, room }) => {
         socket.to(room).emit('userTyping', { username });
     });
+
+    // leave room
+    socket.on('leaveRoom', async ({id, room}) => {
+        console.log(id);
+        await userModel.findOneAndUpdate({_id: id}, {$pull: {rooms: room}});
+        socket.leave(room);
+    })
 
     // Handle user disconnect
     socket.on('disconnect', () => {

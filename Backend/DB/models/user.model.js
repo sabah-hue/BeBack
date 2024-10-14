@@ -25,6 +25,18 @@ const userSchema = new Schema({
         type: String,
         default: 'https://img.freepik.com/premium-photo/white-plate-with-womans-face-it_1221953-49225.jpg?w=740'
     },
+    chatPic:{
+        type: String,
+        default: 'https://img.freepik.com/premium-photo/white-plate-with-womans-face-it_1221953-49225.jpg?w=740'
+    },
+    chatBio:{
+        type: String,
+        default: 'I am available now'
+    },
+    chatName:{
+        type: String,
+        default: 'user'
+    },
     role:{
         type:String,
         enum:['User','Admin'],

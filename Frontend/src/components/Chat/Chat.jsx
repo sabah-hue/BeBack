@@ -1,33 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import io from 'socket.io-client';
-import EmojiPicker from 'emoji-picker-react'; // Import emoji picker
+// import EmojiPicker from 'emoji-picker-react';
 import './Chat.css';
+// import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
-const socket = io('http://localhost:5000'); // Adjust to your server URL
 
-export default function Chat() {
+const socket = io('http://localhost:5000');
+
+export default function Chat({userData}) {
+  console.log(userData);
+  // navigation
+  const navigate = useNavigate();
+
+  // get data from queryParams
   const location = useLocation();
   const username = new URLSearchParams(location.search).get('username');
   const room = new URLSearchParams(location.search).get('room');
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
-  const [message, setMessage] = useState(''); // State for message input
-  const [showEmojiPicker, setShowEmojiPicker] = useState(false); // Toggle for emoji picker
+  const [message, setMessage] = useState('');
+  // const [showEmojiPicker, setShowEmojiPicker] = useState(false);
 
   useEffect(() => {
-    // Emit joinRoom event
+    // enter the room add room to user DB
     socket.emit('joinRoom', { username, room });
 
-    // Listen for messages
-    socket.on('newMessage', (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-      window.scrollTo(0, document.body.scrollHeight);
-    });
-
-    // Listen for room data (user list)
+    // notify when user join room
+    // socket.on('note', (data, username) => {
+    //     toast['warning'](`${data}`);
+    // });
+    
+    // display all users in same room
     socket.on('roomData', ({ users }) => {
       setUsers(users);
+    });
+
+    // fetch old messages
+    socket.on('oldMessages', (oldMessages) => {
+      setMessages(oldMessages);
+    })
+
+    // recieve new message and add it to old messages 
+    socket.on('newMessage', (message) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
     });
 
     return () => {
@@ -37,89 +54,106 @@ export default function Chat() {
     };
   }, [username, room]);
 
+  // when user press submit
+  // prevent reload
   const handleMessageSubmit = (e) => {
     e.preventDefault();
     if (message) {
+      // send message to backend
       socket.emit('sendMessage', { room, username, message });
-      setMessage(''); // Clear input after sending message
-      window.scrollTo(0, document.body.scrollHeight);
+      // clear user input field
+      setMessage('');
     }
+    // scrole to the last message
+    window.scrollTo(0, document.body.scrollHeight);
   };
 
-  // Emit typing event
-  function handleTyping() {
+  // show who is typing now
+  const handleTyping = () => {
     socket.emit('typing', { username, room });
+  };
+
+  // leave chat room
+  console.log(`front: ${userData}`);
+  const leaveChat = () => {
+    console.log(`front: ${userData}`);
+    socket.emit('leaveRoom', {id: userData.id, room});
+      navigate('/base');
   }
 
-  // Listen for typing notification
+  // stop display typing... message after 2sec
   useEffect(() => {
     let typingTimeout;
     socket.on('userTyping', ({ username }) => {
       document.getElementById('typing').innerHTML = `${username} is typing...`;
-
-      // Clear the "typing" message after 3 seconds
       clearTimeout(typingTimeout);
       typingTimeout = setTimeout(() => {
         document.getElementById('typing').innerHTML = '';
-      }, 3000);
+      }, 2000);
     });
 
-    return () => clearTimeout(typingTimeout); // Cleanup on unmount
+    return () => clearTimeout(typingTimeout);
   }, []);
-
-  // Handle emoji click
-  const onEmojiClick = (event, emojiObject) => {
-    setMessage((prevMessage) => prevMessage + emojiObject.emoji); // Correctly append emoji to message
-  };
+  
+  // add emoji but not fit, give undefined
+  // const onEmojiClick = (event, emojiObject) => {
+  //   setMessage((prevMessage) => prevMessage + emojiObject.emoji);
+  // };
 
   return (
-    <div className="chat-container">
-      <header className="chat-header">
-        <h1><i className="fas fa-smile"></i> BeBack Chat</h1>
-        <a id="leave-btn" className="btn">Leave Room</a>
-      </header>
-      <main className="chat-main">
-        <div className="chat-sidebar">
-          <h3><i className="fas fa-comments"></i> Room Name:</h3>
-          <h2 id="room-name">{room}</h2>
-          <h3><i className="fas fa-users"></i> Users</h3>
-          <ul>
-            {users.map((user, index) => (
-              <li key={index}>{user.username}</li>
+    <div className="container chat-container mt-4">
+      <div className="card shadow-lg">
+        <div className="card-header bg-light text-white d-flex justify-content-between align-items-center">
+          <h5><i className="fas fa-smile"></i> BeBack Chat</h5>
+          <button className="btn btn-danger" onClick={leaveChat}>Leave Room</button>
+        </div>
+        <div className="card-body d-flex flex-row">
+          <div className="chat-sidebar bg-light p-3" style={{ width: '30%', maxHeight: '70%', overflowY: 'auto' }}>
+            <h6 className="text-success fs-5">Room Name: <span className="text-dark">{room}</span></h6>
+            <hr className=""/>
+            <h6 className="text-success fs-5">Users</h6>
+            <ul className="list-group text-success">
+              {/* show users in same room */}
+              {users.map((user, index) => (
+                <li key={index} className="list-group-item d-flex align-items-center">
+                  <img src={`https://ui-avatars.com/api/?name=${user.username}`} alt={user.username} className="avatar" />
+                  <span className="ml-2">{user.username}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="chat-messages flex-grow-1 p-3" style={{ maxHeight: '400px', overflowY: 'auto' }}>
+            {messages.map((msg, index) => (
+              <div key={index} className="message mb-2">
+                <div className="d-flex align-items-center">
+                  <img src={`https://ui-avatars.com/api/?name=${msg.username}`} alt={msg.username} className="avatar" />
+                  <strong className="ml-2 text-warning">{msg.username}:</strong>
+                  <span className="ml-1">{msg.content}</span>
+                </div>
+              </div>
             ))}
-          </ul>
+            <p id="typing" className="text-success"></p>
+          </div>
         </div>
-        <div className="chat-messages">
-          {messages.map((msg, index) => (
-            <div key={index}>
-              <strong>{msg.username}: </strong>
-              <span>{msg.content}</span>
-
-            </div>
-          ))}
-          {/* user is typing */}
-          <p id="typing" className="text-success"></p>
+        <div className="card-footer">
+          <form onSubmit={handleMessageSubmit} className="d-flex">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter Message"
+              value={message}
+              required
+              autoComplete="off"
+              onChange={(e) => setMessage(e.target.value)}
+              onInput={handleTyping}
+            />
+            <button className="btn btn-warning mx-3"><i className="fas fa-paper-plane"></i></button>
+          </form>
+          {/* <button className="btn btn-light mt-2" onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
+            <i className="far fa-laugh"></i>
+          </button>
+          {showEmojiPicker && <EmojiPicker onEmojiClick={onEmojiClick} />} */}
         </div>
-      </main>
-      <div className="chat-form-container">
-        <form id="chat-form" onSubmit={handleMessageSubmit}>
-          <input
-            id="msg"
-            type="text"
-            placeholder="Enter Message"
-            value={message}
-            required
-            autoComplete="off"
-            onChange={(e) => setMessage(e.target.value)} // Update message state
-            onInput={handleTyping} // Handle typing event
-          />
-          <button className="btn ms-2"><i className="fas fa-paper-plane"></i></button>
-        </form>
-        {/* Toggle Emoji Picker */}
-        <button className="btn emoji-btn" onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
-          <i className="far fa-laugh"></i> 
-        </button>
-        {showEmojiPicker && <EmojiPicker onEmojiClick={onEmojiClick} />} {/* Show emoji picker */}
       </div>
     </div>
   );
