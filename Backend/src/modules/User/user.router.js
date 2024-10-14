@@ -6,7 +6,8 @@ import {asyncErrorHandler} from "../../utils/errorHandler.js";
 const router = Router();
 
 router.get("/profile/:id", asyncErrorHandler(userController.userProfile))
+router.get("/update/:id", asyncErrorHandler(userController.userUpdateProfile))
 router.post("/contact", asyncErrorHandler(userController.sendMessage))
-router.post("/chat/update", asyncErrorHandler(userController.updateUserChat))
+router.post("/chat/update/:id", asyncErrorHandler(userController.updateUserChat))
 
 export default router
