@@ -5,3 +5,8 @@
     --font-family:'Encode Sans Expanded', sans-serif;
     --rating-color:#ffc908;
 }
+
+.bg-main
+{
+    background-color: var(--main-color) !important;
+}

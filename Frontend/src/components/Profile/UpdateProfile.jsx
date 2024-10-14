@@ -8,9 +8,6 @@ export default function UpdateProfile({ userData }) {
   const [updateUser, setUpdateUser] = useState({
     firstName: "",
     lastName: "",
-    oldPassword: "",
-    newPassword: "",
-    email: "",
     profilePic: "",
   });
   
@@ -23,8 +20,17 @@ export default function UpdateProfile({ userData }) {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/user/update/${id}`, updateUser);
-      navigate(`/profile/${id}`);
+      console.log("user update :", updateUser);
+      const formData = new FormData();
+      formData.append("profilePic", updateUser.profilePic)
+      formData.append("firstName", updateUser.firstName)
+      formData.append("lastName", updateUser.lastName)
+
+      console.log(formData);
+      const {data} = await axios.put(`http://localhost:5000/user/update/${id}`, updateUser);
+      console.log(data);
+      if (data)
+        navigate(`/profile/${id}`);
     } catch (error) {
       console.error("Error updating user:", error);
     }
@@ -37,9 +43,6 @@ export default function UpdateProfile({ userData }) {
       setUpdateUser({
         firstName: data.user.name.firstName || "",
         lastName: data.user.name.lastName || "",
-        email: data.user.email || "",
-        oldPassword:"",
-        newPassword: "",
         profilePic: data.user.profilePic || "",
       });
     } catch (error) {
@@ -54,7 +57,7 @@ export default function UpdateProfile({ userData }) {
 
   return (
     <div className="container p-5">
-      <div className="w-50 border bg-white shadow px-5 mt-4 mb-4 rounded w-100">
+      <div className="w-50 bg-white shadow px-5 mt-4 mb-4 ">
         <h2>Update User Data</h2>
       </div>
 
@@ -80,42 +83,6 @@ export default function UpdateProfile({ userData }) {
             placeholder="Last Name"
             value={updateUser.lastName}
             onChange={e => setUpdateUser({ ...updateUser, lastName: e.target.value })}
-          />
-        </div>
-
-        <div className="mb-2">
-          <label htmlFor="email">Email:</label>
-          <input 
-            type="email" 
-            name="email" 
-            className="form-control" 
-            placeholder="Email"
-            value={updateUser.email}
-            onChange={e => setUpdateUser({ ...updateUser, email: e.target.value })}
-          />
-        </div>
-
-        <div className="mb-2">
-          <label htmlFor="newPassword">old password:</label>
-          <input 
-            type="password" 
-            name="oldPassword" 
-            className="form-control"
-            placeholder="old password"
-            value=""
-            onChange={e => setUpdateUser({ ...updateUser, oldPassword: e.target.value })}
-          />
-        </div>
-
-        <div className="mb-2">
-          <label htmlFor="newPassword">new password:</label>
-          <input 
-            type="password" 
-            name="newPassword" 
-            className="form-control"
-            placeholder="new password"
-            value=""
-            onChange={e => setUpdateUser({ ...updateUser, newPassword: e.target.value })}
           />
         </div>
 

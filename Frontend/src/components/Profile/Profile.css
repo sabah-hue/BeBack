@@ -31,6 +31,8 @@ h2 {
     margin-bottom: 15px;
     border-bottom: 2px solid #eee;
     padding-bottom: 10px;
+    color: #0aad0a !important;
+    font-family: "Dancing Script", cursive;
 }
 
 p {
