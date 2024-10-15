@@ -10,6 +10,7 @@ const router = Router();
 router.get("/", asyncErrorHandler(userController.getAllUsers))
 router.get("/profile/:id", asyncErrorHandler(userController.userProfile))
 router.delete("/:id", asyncErrorHandler(userController.deleteUser))
+router.put("/updateuser/:id", asyncErrorHandler(userController.userUpdate))
 
 router.put("/update/:id", myMulter(fileValidation.image).single('image'), asyncErrorHandler(userController.userUpdateProfile))
 router.post("/contact", asyncErrorHandler(userController.sendMessage))

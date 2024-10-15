@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 
-export default function HomeUser() {
+export default function Users() {
     useEffect(() => {
         getAllUsers();
       }, []);
@@ -65,6 +65,9 @@ export default function HomeUser() {
                                 <td>{user.name.lastName}</td>
                                 <td>{user.email}</td>
                                 <td>
+                                  <img className="w-25 border rounded-circle" src={user.profilePic} alt="" />
+                                </td>
+                                <td>
                                   <button
                                     onClick={(e) => handleDelete(user._id)}
                                     className="btn btn-danger"
@@ -72,7 +75,7 @@ export default function HomeUser() {
                                     <i className="far fa-trash-alt"></i>
                                   </button>
                                   <Link
-                                    to={`/update/${user._id}`}
+                                    to={`/updateuser/${user._id}`}
                                     className="btn btn-warning mx-2"
                                   >
                                     <i className="far fa-edit"></i>{" "}

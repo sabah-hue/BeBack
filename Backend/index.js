@@ -5,6 +5,7 @@ import cors from 'cors';
 import { Server } from "socket.io";
 import messageModel from './DB/models/message.model.js';
 import userModel from './DB/models/user.model.js';
+import roomModel from './DB/models/room.model.js';
 
 const app = express();
 app.use(cors({

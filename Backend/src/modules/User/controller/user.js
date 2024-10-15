@@ -95,3 +95,21 @@ export const deleteUser = async (req, res, next)=>{
     }
     res.json({message: "no users found"});
 }
+
+// update user Data
+export const userUpdate = async (req, res, next)=>{
+    const {firstName, lastName, profilePic} = req.body;
+    const id = req.params.id;
+    const updatedUser = await userModel.findOneAndUpdate({_id: id},
+        {name:{
+            firstName,
+            lastName
+        },
+        profilePic},
+        {new: true}
+    )
+    if (updatedUser) {
+        res.json({message: "updated successfully", updatedUser});
+    }
+    res.json({message: "no user found"});
+}

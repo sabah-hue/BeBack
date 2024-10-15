@@ -43,12 +43,12 @@ export const updateRoom = async (req, res, next) => {
 
 // delete room
 export const deleteRoom = async (req, res, next) => {
-    const {_id} = req.body;
-    const room = await roomModel.findOneAndDelete({_id});
+    const {id} = req.params;
+    const room = await roomModel.findOneAndDelete({_id: id});
     if (room) {
         return res.status(200).json({message: 'deleted successfully'});
     }
-    return res.status(400).json({message: 'fail to delete'});
+    return res.status(400).json({message: 'no rooms with this id to delete'});
 }
 // join room
 export const joinRoom = async (req, res, next) => {

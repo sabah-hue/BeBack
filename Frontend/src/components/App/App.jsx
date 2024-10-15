@@ -6,6 +6,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Dashboard from '../Dashboard/Dashboard';
 import Users from '../Dashboard/User';
+import UpdateUser from '../Dashboard/UpdateUser';
 import Rooms from '../Dashboard/Rooms';
 import Profile from '../Profile/Profile';
 import UpdateProfile from '../Profile/UpdateProfile';
@@ -59,6 +60,7 @@ let logoutUser = ()=>{
       {path:'update/:id', element:<ProtectedRoute userData={userData}><UpdateProfile userData={userData}/></ProtectedRoute>},
       {path:'dashboard', element:<ProtectedRoute userData={userData}><Dashboard userData={userData}/></ProtectedRoute>},
       {path:'users', element:<ProtectedRoute userData={userData}><Users/></ProtectedRoute>},
+      {path:'updateuser/:id', element:<ProtectedRoute userData={userData}><UpdateUser/></ProtectedRoute>},
       {path:'rooms', element:<ProtectedRoute userData={userData}><Rooms/></ProtectedRoute>}
 
     ]}
