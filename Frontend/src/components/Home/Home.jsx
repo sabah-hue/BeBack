@@ -34,7 +34,7 @@ const notify = (message, type) => toast['warning']('please, login first ...');
       {/* Header Section */}
       <div className="homeSec text-center">
         <h1 className="headFont my-5">BeBack</h1>
-        <h2>
+        <h2 className="start-type">
           BeBack <span className="typer" ref={el} />
         </h2>
        {userData ?   (

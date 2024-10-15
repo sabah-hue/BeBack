@@ -23,6 +23,11 @@
     color: white;
   }
   
+  .start-type {
+    color: black !important;
+
+  }
+
   h1 {
     margin-top: 40px;
     font-family: "Dancing Script", cursive;

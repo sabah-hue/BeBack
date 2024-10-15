@@ -5,6 +5,8 @@ import Home from '../Home/Home';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Dashboard from '../Dashboard/Dashboard';
+import Users from '../Dashboard/User';
+import Rooms from '../Dashboard/Rooms';
 import Profile from '../Profile/Profile';
 import UpdateProfile from '../Profile/UpdateProfile';
 import Notfound from '../Notfound/Notfound';
@@ -55,7 +57,10 @@ let logoutUser = ()=>{
       {path:'interview', element:<ProtectedRoute userData={userData}><Interview /></ProtectedRoute>},
       {path:'profile/:id', element:<ProtectedRoute userData={userData}><Profile userData={userData}/></ProtectedRoute>},
       {path:'update/:id', element:<ProtectedRoute userData={userData}><UpdateProfile userData={userData}/></ProtectedRoute>},
-      {path:'dashboard', element:<Dashboard userData={userData}/>}
+      {path:'dashboard', element:<ProtectedRoute userData={userData}><Dashboard userData={userData}/></ProtectedRoute>},
+      {path:'users', element:<ProtectedRoute userData={userData}><Users/></ProtectedRoute>},
+      {path:'rooms', element:<ProtectedRoute userData={userData}><Rooms/></ProtectedRoute>}
+
     ]}
   ])
   return (

@@ -1,7 +1,7 @@
 import userModel from "../../../../DB/models/user.model.js";
 import {sendEmail} from "../../../utils/emailService.js";
 import cloudinary from "../../../utils/cloudinary.js";
-import { hashPassword, comparePassword } from "../../../utils/hashPassword.js";
+// import { hashPassword, comparePassword } from "../../../utils/hashPassword.js";
 
 
 // get user profile Data
@@ -55,6 +55,7 @@ export const userUpdateProfile = async (req, res, next) => {
     const path = req.file.path;
     const {id} = req.params;
 
+    if (!req.file) return next(new ResError("no photo ", 404 ))
     // fetch user data
     const user = await userModel.findById({_id: id});
     if (!user) {
@@ -62,6 +63,7 @@ export const userUpdateProfile = async (req, res, next) => {
     }
     const {secure_url}= await cloudinary.uploader.upload(path);
     console.log(secure_url);
+    if (!secure_url) return next(new ResError("can't upload photo on cloud ", 404 ))
 
     const updatedUser = await userModel.findOneAndUpdate({_id: id},
             {name:{
@@ -71,5 +73,25 @@ export const userUpdateProfile = async (req, res, next) => {
             profilePic: secure_url},
             {new: true}
         )
+    if (!updatedUser) return next(new ResError("can't update DB ", 404 ))
     res.json({message: "updated", updatedUser});
+}
+
+// get all users
+export const getAllUsers = async (req, res, next)=>{
+    const users = await userModel.find();
+    if (users) {
+        res.json({message: "Done", users});
+    }
+    res.json({message: "no users found"});
+}
+
+// delete user
+export const deleteUser = async (req, res, next)=>{
+    const user = await userModel.findOneAndDelete(req.params.id);
+    console.log(user);
+    if (user) {
+        res.json({message: " Deleted", user});
+    }
+    res.json({message: "no users found"});
 }

@@ -7,9 +7,13 @@ import {myMulter , fileValidation} from '../../utils/upload.js'
 
 const router = Router();
 
+router.get("/", asyncErrorHandler(userController.getAllUsers))
 router.get("/profile/:id", asyncErrorHandler(userController.userProfile))
+router.delete("/:id", asyncErrorHandler(userController.deleteUser))
+
 router.put("/update/:id", myMulter(fileValidation.image).single('image'), asyncErrorHandler(userController.userUpdateProfile))
 router.post("/contact", asyncErrorHandler(userController.sendMessage))
 router.put("/chat/update/:id", asyncErrorHandler(userController.updateUserChat))
+
 
 export default router
