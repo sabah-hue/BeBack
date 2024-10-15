@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Navbar.css'; // Ensure to import the CSS file
+import './Navbar.css';
 
 export default function Navbar({ userData, logoutUser }) {
   return (
@@ -19,7 +19,6 @@ export default function Navbar({ userData, logoutUser }) {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          {/* Navigation Links */}
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link className="nav-link" aria-current="page" to="/">Home</Link>
@@ -32,12 +31,11 @@ export default function Navbar({ userData, logoutUser }) {
             </li>
           </ul>
 
-          {/* User Account Links */}
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             {userData ? (
               <>
                 <div className="nav-item px-1">
-                  <Link to={`/profile/${userData.id}`} className="nav-link text-warning">Hello, {userData.name}</Link>
+                  <Link to={`/profile/${userData.id}`} className="nav-link text-warning"><i className="fa fa-smile">   Hello , </i>{userData.name}</Link>
                 </div>
                 <li className="nav-item">
                   <Link className="nav-link" onClick={logoutUser} to="#">Logout</Link>
@@ -54,7 +52,7 @@ export default function Navbar({ userData, logoutUser }) {
               </>
             )}
 
-{/*   dashboard appear */}
+{/*   dashboard  */}
 {userData?.role === 'Admin' ? (
               <>
                 <li className="nav-item">

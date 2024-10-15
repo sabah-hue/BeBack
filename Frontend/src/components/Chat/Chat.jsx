@@ -78,6 +78,11 @@ export default function Chat({userData}) {
   const leaveChat = () => {
     console.log(`front: ${userData}`);
     socket.emit('leaveRoom', {id: userData.id, room});
+    
+    // display all users in same room again to remove leaved user
+    socket.on('roomData', ({ users }) => {
+      setUsers(users);
+    });
       navigate('/base');
   }
 

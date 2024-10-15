@@ -33,8 +33,9 @@ export const getAllRooms = async (req, res, next) => {
 
 // update room
 export const updateRoom = async (req, res, next) => {
-    const {name, _id} = req.body;
-    const room = await roomModel.findOneAndUpdate({_id}, {name});
+    const {id} = req.params;
+    const {name} = req.body;
+    const room = await roomModel.findOneAndUpdate({_id: id}, {name});
     if (room) {
         return res.status(200).json({message: 'updated successfully', room});
     }

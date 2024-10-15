@@ -61,7 +61,7 @@ export default function Profile({ userData }) {
             </button>
 
             <button className="btn mx-2 me-auto">
-            <Link className="nav-link" aria-current="page" to={`/update/${userData?.id}`}>
+            <Link className="nav-link" aria-current="page" to={`/updateuserprofile/${userData?.id}`}>
             <i className="far fa-edit"></i>
             </Link>
             </button>

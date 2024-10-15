@@ -66,6 +66,11 @@ io.on('connection', (socket) => {
     socket.on('leaveRoom', async ({id, room}) => {
         console.log(id);
         await userModel.findOneAndUpdate({_id: id}, {$pull: {rooms: room}});
+
+        // Get users in room and emit to all users in the room
+        const roomUsers = await userModel.find({ rooms: { $in: [room] } });
+        io.to(room).emit('roomData', { users: roomUsers });
+
         socket.leave(room);
     })
 

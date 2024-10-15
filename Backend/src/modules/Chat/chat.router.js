@@ -9,7 +9,7 @@ const router = Router();
 router.post("/room", asyncHandler(chatController.createRoom))
 router.get("/rooms/:roomId", asyncHandler(chatController.getRoom))
 router.get("/rooms", asyncHandler(chatController.getAllRooms))
-router.put("/room", asyncHandler(chatController.updateRoom))
+router.put("/room/:id", asyncHandler(chatController.updateRoom))
 router.delete("/room/:id", asyncHandler(chatController.deleteRoom))
 router.post("/room/join", asyncHandler(chatController.joinRoom))
 

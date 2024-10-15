@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function UpdateUser() {
+export default function UpdateUserProfile() {
 // loading
 const [loading, setLoading] = useState(false);
 
@@ -48,10 +48,10 @@ const uploadImage = async ()=>{
         const imageUrl = await uploadImage();
         updateUser.profilePic = imageUrl;
 
-        await axios.put(`http://localhost:5000/user/updateuser/${id}`, updateUser);
+        await axios.put(`http://localhost:5000/user/updateuserprofile/${id}`, updateUser);
         // end loading
         setLoading(false);
-        navigate('/Users')
+        navigate(`/profile/${id}`)
       } catch (error) {
         console.error("Error update user:", error);
       }
@@ -132,7 +132,7 @@ const uploadImage = async ()=>{
        <button className='btn btn-outline-success me-2'>
         {!loading ? 'update User' : <i className='fas fa-spinner fa-spin'></i>}
         </button>
-       <Link to="/Users" className='btn btn-outline-primary'>Back</Link>
+       <Link to={`profile/:${id}`} className='btn btn-outline-primary'>Back</Link>
    </form>
 
   </div>  )

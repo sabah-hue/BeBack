@@ -69,8 +69,6 @@ export default function Register() {
         setLoading(true);
         const {data} = await axios.post('http://localhost:5000/auth/signup', userData);
         console.log(data);
-        // Handle successful registration (chesk success message, redirect)
-
         // end loading
          setLoading(false);
         if (data.message !== 'please, Confirm your account') {
@@ -85,14 +83,12 @@ export default function Register() {
         
       } catch (error) {
         console.log('Registration error:', error);
-        // Handle registration error
         // end loading
         setLoading(false);
         notify(error.response.data.message, 'error');
       }
     }
   });
-  // console.log(regData.errors);
 
   return (
     <>

@@ -47,6 +47,10 @@ export default function Rooms() {
                         <Link to="/dashboard" className="btn btn-outline-success">
                            Back
                           </Link>
+                        {/* create room */}
+                          <Link to={`/createroom`} className="btn btn-success mx-2">
+                            <i className="far fa-plus"></i>
+                          </Link>
 
                         </div>
                         <table className="bg-light text-center table table-striped">
@@ -73,16 +77,8 @@ export default function Rooms() {
                                   >
                                     <i className="far fa-edit"></i>{" "}
                                   </Link>
-
-                                  <Link
-                                    to={``}
-                                    className="btn btn-success mx-2"
-                                  >
-                                    <i className="far fa-plus"></i>{" "}
-                                  </Link>
                                 </td>
-                              
-                              
+                            
                               </tr>
                             ))}
                           </tbody>

@@ -8,7 +8,10 @@ import Dashboard from '../Dashboard/Dashboard';
 import Users from '../Dashboard/User';
 import UpdateUser from '../Dashboard/UpdateUser';
 import Rooms from '../Dashboard/Rooms';
+import UpdateRoom from '../Dashboard/UpdateRoom';
+import CreateRoom from '../Dashboard/CreateRoom';
 import Profile from '../Profile/Profile';
+import UpdateUserProfile from '../Profile/UpdateUserProfile';
 import UpdateProfile from '../Profile/UpdateProfile';
 import Notfound from '../Notfound/Notfound';
 import { jwtDecode } from "jwt-decode";
@@ -60,8 +63,11 @@ let logoutUser = ()=>{
       {path:'update/:id', element:<ProtectedRoute userData={userData}><UpdateProfile userData={userData}/></ProtectedRoute>},
       {path:'dashboard', element:<ProtectedRoute userData={userData}><Dashboard userData={userData}/></ProtectedRoute>},
       {path:'users', element:<ProtectedRoute userData={userData}><Users/></ProtectedRoute>},
+      {path:'updateuserprofile/:id', element:<ProtectedRoute userData={userData}><UpdateUserProfile/></ProtectedRoute>},
       {path:'updateuser/:id', element:<ProtectedRoute userData={userData}><UpdateUser/></ProtectedRoute>},
-      {path:'rooms', element:<ProtectedRoute userData={userData}><Rooms/></ProtectedRoute>}
+      {path:'rooms', element:<ProtectedRoute userData={userData}><Rooms/></ProtectedRoute>},
+      {path:'createroom', element:<ProtectedRoute userData={userData}><CreateRoom/></ProtectedRoute>},
+      {path:'updateroom/:id', element:<ProtectedRoute userData={userData}><UpdateRoom/></ProtectedRoute>},
 
     ]}
   ])
