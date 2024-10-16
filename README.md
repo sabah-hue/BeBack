@@ -23,7 +23,7 @@ To complete what we begin with ALX, hope to make community for ALX backend devel
 # Services
     1. use gmail service to send emails.
     2. use cloudinary to store images.
-    
+
 # Installation:
 Fork repo and clone it: 
     [git clone ](https://github.com/sabah-hue/BeBack.git)
@@ -48,13 +48,19 @@ or Download code from github:
     3. To start Frontend:
         npm start
 
-# Demo
+# Demo :
     <!-- will added after record it/ as i still work on repo  -->
+
+# Slide Link:
+    you can visite this Link
+    https://docs.google.com/presentation/d/1IQPLZP_9YLi6ZlOSLbTwDMGSFzEagEdGH_OOstc_9s4/edit#slide=id.g30bade8b7ac_0_4
+
+    to have overview about website and features.
 
 # Usage :
 For Backend engineer can contact, chat and share experience.
 
-# Contributing :
+# Contribute :
 Fork the repository on GitHub and then clone it to your local machine using 
     [git clone ](https://github.com/sabah-hue/BeBack.git)
 

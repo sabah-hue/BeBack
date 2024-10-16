@@ -78,7 +78,7 @@ export default function Chat({userData}) {
   const leaveChat = () => {
     console.log(`front: ${userData}`);
     socket.emit('leaveRoom', {id: userData.id, room});
-    
+
     // display all users in same room again to remove leaved user
     socket.on('roomData', ({ users }) => {
       setUsers(users);
@@ -121,7 +121,9 @@ export default function Chat({userData}) {
               {/* show users in same room */}
               {users.map((user, index) => (
                 <li key={index} className="list-group-item d-flex align-items-center">
-                  <img src={`https://ui-avatars.com/api/?name=${user.username}`} alt={user.username} className="avatar" />
+                  <img src= 
+                  {`${`https://ui-avatars.com/api/?name=${user.username}`}`}
+                  alt={user.username} className="avatar" />
                   <span className="ml-2">{user.username}</span>
                 </li>
               ))}

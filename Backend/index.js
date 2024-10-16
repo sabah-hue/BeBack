@@ -62,6 +62,12 @@ io.on('connection', (socket) => {
         socket.to(room).emit('userTyping', { username });
     });
 
+    // update My profile
+    
+
+    // view profile users in same room
+
+
     // leave room
     socket.on('leaveRoom', async ({id, room}) => {
         console.log(id);
