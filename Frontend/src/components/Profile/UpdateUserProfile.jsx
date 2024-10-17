@@ -7,30 +7,35 @@ export default function UpdateUserProfile() {
 // loading
 const [loading, setLoading] = useState(false);
 
-const [imgSelected, setImgSelected] = useState();
+const [imgSelected, setImgSelected] = useState(null);
+const [chatImgSelected, setChatImgSelected] = useState(null);
+
 // I use cloudinary service because there is some issue in Backend integration
-const uploadImage = async ()=>{
-  const formData = new FormData()
-    formData.append("file", imgSelected)
-    formData.append("upload_preset", "eabn3dkm")
-
-    try {
-      const {data} = await axios.post("https://api.cloudinary.com/v1_1/dps8pco1z/image/upload", formData);
-      console.log(data);
-      if (data) {
-        return data.secure_url;
+const uploadImage = async (value)=>{
+    const formData = new FormData()
+      formData.append("file", value)
+      formData.append("upload_preset", "eabn3dkm")
+  
+      try {
+        const {data} = await axios.post("https://api.cloudinary.com/v1_1/dps8pco1z/image/upload", formData);
+        console.log(data);
+        if (data) {
+          return data.secure_url;
+        }
+      } catch (error) {
+        console.error("Error uploading image:", error);
       }
-    } catch (error) {
-      console.error("Error uploading image:", error);
-    }
-};
+  };
 
+  //
     const navigate = useNavigate();
     const [updateUser, setUpdateUser] = useState({
         profilePic: "",
         firstName: "",
         lastName: "",
         email: "",
+        chatBio: "",
+        chatPic: "",
       });
     const {id} = useParams();
 
@@ -45,8 +50,13 @@ const uploadImage = async ()=>{
         // start loading
         setLoading(true);
 
-        const imageUrl = await uploadImage();
+        // upload profile and pic images
+        const imageUrl = await uploadImage(imgSelected);
+        console.log(imageUrl);
         updateUser.profilePic = imageUrl;
+        const chatUrl = await uploadImage(chatImgSelected);
+        console.log(chatUrl);
+        updateUser.chatPic = chatUrl;
 
         await axios.put(`http://localhost:5000/user/updateuserprofile/${id}`, updateUser);
         // end loading
@@ -67,6 +77,8 @@ const uploadImage = async ()=>{
             firstName: data.user.name.firstName,
             lastName: data.user.name.lastName,
             email: data.user.email,
+            chatBio: data.user.chatBio,
+            chatPic: data.user.chatPic,
           });
           
         } catch (error) {
@@ -80,7 +92,7 @@ const uploadImage = async ()=>{
    </div>
    <form onSubmit={handleUpdate}>
        <div className="mb-2">
-          <label htmlFor="image">Image URL:</label>
+          <label htmlFor="profilePic">Image URL:</label>
           <input
             type="file"
             name="profilePic"
@@ -128,11 +140,33 @@ const uploadImage = async ()=>{
            />
        </div>
 
+       <div className="mb-2">
+          <label htmlFor="chatBio">Bio:</label>
+          <input
+            type="text"
+            name="chatBio"
+            className="form-control"
+            placeholder="your thoughts ..."
+           value={updateUser.chatBio}
+           onChange={e=>setUpdateUser({...updateUser, chatBio:e.target.value})}
+           />
+       </div>
+
+       <div className="mb-2">
+          <label htmlFor="chatPic">chat picture:</label>
+          <input
+            type="file"
+            name="chatPic"
+            className="form-control"
+            placeholder="chat picture"
+           onChange={e=> setChatImgSelected(e.target.files[0])}
+           />
+       </div>
 
        <button className='btn btn-outline-success me-2'>
         {!loading ? 'update User' : <i className='fas fa-spinner fa-spin'></i>}
         </button>
-       <Link to={`profile/:${id}`} className='btn btn-outline-primary'>Back</Link>
+       <Link to={`/Profile/${id}`} className='btn btn-outline-primary'>Back</Link>
    </form>
 
   </div>  )

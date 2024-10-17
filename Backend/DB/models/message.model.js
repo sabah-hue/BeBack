@@ -25,5 +25,16 @@ const messageSchema = new Schema({
     }
 },{timestamps:true})
 
+// virtual populate to get chatPic
+messageSchema.virtual('userProfile', {
+    ref: 'User',
+    localField: 'username',
+    foreignField: 'username',
+    justOne: true
+});
+
+messageSchema.set('toObject', {virtuals: true});
+messageSchema.set('toJSON', {virtuals: true});
+
 const messageModel = mongoose.models.Message || mongoose.model('Message' , messageSchema);
 export default messageModel;

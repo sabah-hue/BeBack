@@ -26,27 +26,25 @@ export const sendMessage = async (req, res, next) => {
     <br />
     <h4> Thanks in advance </h4>
     `;
-    const info = await sendEmail({to: email, subject: 'contact Email', html})
+    const info = await sendEmail({to: 'sabah.abdelbaset@gmail.com', subject: 'contact Email', html})
     return res.status(200).json({message: "we will contact you soon ..."})
 
 }
 
 // update profile pic and Bio chat
+// next work
 export const updateUserChat = async (req, res, next) => {
-    const {bio} = req.body;
-    const path = req.file.path;
-    const {id} = req.params;
-
-    if (path) {
-        const {public_id}= await cloudinary.uploader.
-        upload(path);
-        if (bio) {
-            const user = await userModel.findOneAndUpdate({_id: id},
-                {chatPic:{secure_url , public_id}, chatBio: bio})
-        }
-        const user = await userModel.findOneAndUpdate({_id: id},
-            {chatPic: public_id})
+    const {bio, chatPic} = req.body;
+    const id = req.params.id;
+    const updatedUser = await userModel.findOneAndUpdate({_id: id},
+        {bio,
+        chatPic},
+        {new: true}
+    )
+    if (updatedUser) {
+        return res.status(200).json({message: 'updated successfully', updatedUser});
     }
+    return res.status(400).json({message: 'no rooms with this id to delete'});
 }
 
 // update user profile
@@ -113,4 +111,24 @@ export const userUpdate = async (req, res, next)=>{
         res.json({message: "updated successfully", updatedUser});
     }
     res.json({message: "no user found"});
+}
+
+// personalUpdate
+export const personalUpdate = async (req, res, next)=>{
+    const {firstName, lastName, profilePic, chatBio, chatPic} = req.body;
+    const id = req.params.id;
+    const updatedUser = await userModel.findOneAndUpdate({_id: id},
+        {name:{
+            firstName,
+            lastName
+        },
+        chatBio,
+        chatPic,
+        profilePic},
+        {new: true}
+    )
+    if (updatedUser) {
+        return res.status(200).json({message: 'updated successfully', updatedUser});
+    }
+    return res.status(400).json({message: 'no user with this id to update'});
 }

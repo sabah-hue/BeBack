@@ -105,7 +105,7 @@ export default function UpdateProfile({ userData }) {
         <button className="btn btn-outline-success me-2" disabled={loading}>
           {loading ? "Updating..." : "Update User"}
         </button>
-        <Link to={`/profile/${id}`} className="btn btn-outline-primary">Back</Link>
+        <Link to={`/Profile/${id}`} className="btn btn-outline-primary">Back</Link>
       </form>
     </div>
   );

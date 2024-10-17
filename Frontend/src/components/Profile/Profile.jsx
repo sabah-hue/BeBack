@@ -44,6 +44,11 @@ export default function Profile({ userData }) {
           <p><strong>First Name:</strong> {userProfile.name?.firstName}</p>
           <p><strong>Last Name:</strong> {userProfile.name?.lastName}</p>
           <p><strong>Email:</strong> {userProfile.email}</p>
+          <p><strong>Bio:</strong> {userProfile.chatBio}</p>
+          <p><strong>chat picture:</strong></p>
+          <img src=
+           {userProfile.chatPic ? userProfile.chatPic : `${`https://ui-avatars.com/api/?name=${userProfile.name?.firstName}`}`}
+          className="pic-chat rounded-circle shadow-lg" />
         </div>
 
         <div className="rooms-section">

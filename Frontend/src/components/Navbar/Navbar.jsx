@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
+import axios from 'axios';
 
 export default function Navbar({ userData, logoutUser }) {
   return (
@@ -35,7 +36,7 @@ export default function Navbar({ userData, logoutUser }) {
             {userData ? (
               <>
                 <div className="nav-item px-1">
-                  <Link to={`/profile/${userData.id}`} className="nav-link text-warning"><i className="fa fa-smile">   Hello , </i>{userData.name}</Link>
+                  <Link to={`/profile/${userData.id}`} className="nav-link text-warning"><i className="fa fa-smile">   Hello , {userData.name} </i></Link>
                 </div>
                 <li className="nav-item">
                   <Link className="nav-link" onClick={logoutUser} to="#">Logout</Link>

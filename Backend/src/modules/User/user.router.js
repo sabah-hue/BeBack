@@ -12,7 +12,7 @@ router.get("/profile/:id", asyncErrorHandler(userController.userProfile))
 router.delete("/:id", asyncErrorHandler(userController.deleteUser))
 router.put("/updateuser/:id", asyncErrorHandler(userController.userUpdate))
 
-router.put("/updateuserprofile/:id", asyncErrorHandler(userController.userUpdate))
+router.put("/updateuserprofile/:id", asyncErrorHandler(userController.personalUpdate))
 router.put("/update/:id", myMulter(fileValidation.image).single('image'), asyncErrorHandler(userController.userUpdateProfile))
 router.post("/contact", asyncErrorHandler(userController.sendMessage))
 router.put("/chat/update/:id", asyncErrorHandler(userController.updateUserChat))

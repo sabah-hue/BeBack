@@ -45,7 +45,8 @@ io.on('connection', (socket) => {
         io.to(room).emit('roomData', { users: roomUsers });
 
         // fetch old messages in room
-        const messages = await messageModel.find({room}).sort({createdAt: 1});
+        const messages = await messageModel.find({room}).sort({createdAt: 1})
+                        .populate('userProfile', 'chatPic');
 
         // emit old messages to frontend
         socket.emit('oldMessages', messages);
@@ -63,9 +64,7 @@ io.on('connection', (socket) => {
     });
 
     // update My profile
-    
 
-    // view profile users in same room
 
 
     // leave room

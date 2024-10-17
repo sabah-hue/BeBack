@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import io from 'socket.io-client';
 // import EmojiPicker from 'emoji-picker-react';
@@ -10,7 +10,9 @@ import { useNavigate } from 'react-router-dom';
 const socket = io('http://localhost:5000');
 
 export default function Chat({userData}) {
-  console.log(userData);
+  const messagesRef = useRef(null);
+
+  console.log("userData" , userData);
   // navigation
   const navigate = useNavigate();
 
@@ -22,6 +24,7 @@ export default function Chat({userData}) {
   const [users, setUsers] = useState([]);
   const [message, setMessage] = useState('');
   // const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
     // enter the room add room to user DB
@@ -54,6 +57,13 @@ export default function Chat({userData}) {
     };
   }, [username, room]);
 
+  // scrole effect 
+  useEffect(()=>{
+    if (messagesRef.current) {
+      messagesRef.current.scrollIntoView({behavior: 'smooth'});
+    }
+  }, [messages]);
+
   // when user press submit
   // prevent reload
   const handleMessageSubmit = (e) => {
@@ -74,9 +84,7 @@ export default function Chat({userData}) {
   };
 
   // leave chat room
-  console.log(`front: ${userData}`);
   const leaveChat = () => {
-    console.log(`front: ${userData}`);
     socket.emit('leaveRoom', {id: userData.id, room});
 
     // display all users in same room again to remove leaved user
@@ -86,6 +94,11 @@ export default function Chat({userData}) {
       navigate('/base');
   }
 
+  // showing chatPic and Bio
+  const showUserDetails = (user) => {
+    console.log("chat", user);
+    setSelectedUser(user);
+  }
   // stop display typing... message after 2sec
   useEffect(() => {
     let typingTimeout;
@@ -122,9 +135,13 @@ export default function Chat({userData}) {
               {users.map((user, index) => (
                 <li key={index} className="list-group-item d-flex align-items-center">
                   <img src= 
-                  {`${`https://ui-avatars.com/api/?name=${user.username}`}`}
+                  {user.chatPic ? user.chatPic : `${`https://ui-avatars.com/api/?name=${user.username}`}`}
                   alt={user.username} className="avatar" />
                   <span className="ml-2">{user.username}</span>
+
+                  {/* edit to can show user chatPic and Bio */}
+                  <i  data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"  className='ms-auto fas fa-eye'  onClick={()=>showUserDetails(user) }></i>
                 </li>
               ))}
             </ul>
@@ -133,12 +150,15 @@ export default function Chat({userData}) {
             {messages.map((msg, index) => (
               <div key={index} className="message mb-2">
                 <div className="d-flex align-items-center">
-                  <img src={`https://ui-avatars.com/api/?name=${msg.username}`} alt={msg.username} className="avatar" />
+                <img src= 
+                  {msg.userProfile?.chatPic ? msg.userProfile?.chatPic : `${`https://ui-avatars.com/api/?name=${msg.username}`}`}
+                  alt={msg.username} className="avatar" />
                   <strong className="ml-2 text-warning">{msg.username}:</strong>
                   <span className="ml-1">{msg.content}</span>
                 </div>
               </div>
             ))}
+            <div ref={messagesRef}></div>
             <p id="typing" className="text-success"></p>
           </div>
         </div>
@@ -162,6 +182,30 @@ export default function Chat({userData}) {
           {showEmojiPicker && <EmojiPicker onEmojiClick={onEmojiClick} />} */}
         </div>
       </div>
+
+      {/* ========= Modal ============== */}
+{/* <!-- Modal --> */}
+
+  <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content">
+      <div className="modal-header">
+        <h1 className="modal-title fs-5" id="exampleModalLabel">{selectedUser?.username} chat profile</h1>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body text-center">
+      <img src= 
+          {selectedUser?.chatPic ? selectedUser?.chatPic : `${`https://ui-avatars.com/api/?name=${selectedUser?.username}`}`}
+          alt={selectedUser?.username} className="w-75 rounded-circle" />
+      <p>user Bio : <strong className='text-success'>{selectedUser?.chatBio}</strong></p>
+      <p>user is Now <strong className=''>{selectedUser?.status}</strong></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+      {/* ========== end Modal ========== */}
+
     </div>
   );
 }
