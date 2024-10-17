@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import io from 'socket.io-client';
-// import EmojiPicker from 'emoji-picker-react';
+import EmojiPicker from 'emoji-picker-react';
 import './Chat.css';
 // import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
@@ -23,7 +23,7 @@ export default function Chat({userData}) {
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
   const [message, setMessage] = useState('');
-  // const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
@@ -113,10 +113,11 @@ export default function Chat({userData}) {
     return () => clearTimeout(typingTimeout);
   }, []);
   
-  // add emoji but not fit, give undefined
-  // const onEmojiClick = (event, emojiObject) => {
-  //   setMessage((prevMessage) => prevMessage + emojiObject.emoji);
-  // };
+  // handle emoji
+  const onEmojiClick = (emojiObject) => {
+    setMessage((prevMessage) => prevMessage + emojiObject.emoji);
+    setShowEmojiPicker(false);
+  };
 
   return (
     <div className="container chat-container mt-4">
@@ -175,11 +176,14 @@ export default function Chat({userData}) {
               onInput={handleTyping}
             />
             <button className="btn btn-warning mx-3"><i className="fas fa-paper-plane"></i></button>
-          </form>
-          {/* <button className="btn btn-light mt-2" onClick={() => setShowEmojiPicker(!showEmojiPicker)}>
+            <button className="btn btn-light mt-2" onClick={(e) => {
+              e.preventDefault();
+              setShowEmojiPicker(!showEmojiPicker);}}>
             <i className="far fa-laugh"></i>
           </button>
-          {showEmojiPicker && <EmojiPicker onEmojiClick={onEmojiClick} />} */}
+          </form>
+
+          {showEmojiPicker && <div className='emoji'><EmojiPicker onEmojiClick={onEmojiClick} /></div>}
         </div>
       </div>
 

@@ -49,6 +49,13 @@ body {
 	border-right: 1px solid #ddd;
   }
   
+  .emoji {
+	position: absolute;
+	bottom: 50px;
+	right: 20px;
+	z-index: 9999;
+  }
+
   @media (max-width: 700px) {
 	.chat-sidebar {
 	  display: none;
