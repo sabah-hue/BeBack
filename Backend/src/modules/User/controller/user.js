@@ -88,12 +88,13 @@ export const getAllUsers = async (req, res, next)=>{
 
 // delete user
 export const deleteUser = async (req, res, next)=>{
-    const user = await userModel.findOneAndDelete(req.params.id);
+    const {id} = req.params;
+    const user = await userModel.findOneAndDelete({_id: id});
     console.log(user);
     if (user) {
-        res.json({message: " Deleted", user});
+        return res.status(200).json({message: 'deleted successfully'});
     }
-    res.json({message: "no users found"});
+    return res.status(400).json({message: 'no rooms with this id to delete'});
 }
 
 // update user Data

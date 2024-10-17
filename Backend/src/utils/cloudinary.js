@@ -4,8 +4,8 @@ dotenv.config();
 
 
 cloudinary.config({ 
-    cloud_name: 'dps8pco1z', 
-    api_key: '485143223195272', 
+    cloud_name: process.env.CLOUD_NAME, 
+    api_key: process.env.API_KEY, 
     api_secret: process.env.CLOUD_KEY //  API Keys IN .env FILE
 });
 

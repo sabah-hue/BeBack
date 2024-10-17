@@ -1,10 +1,4 @@
 .homeSec {
-    /* background-image: 
-    linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.4), rgba(135,206,250,.8)), 
-    url(./istockphoto-2109155590-1024x1024.jpg);
-    background-position: center;
-    background-size: cover;
-    height: 100vh;*/
     background-image: linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,.3), rgba(31, 229, 236, 0.8));
     background-attachment: fixed;
     padding: 60px 0;

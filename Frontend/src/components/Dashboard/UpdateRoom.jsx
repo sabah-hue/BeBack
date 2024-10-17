@@ -27,8 +27,8 @@ export default function UpdateRoom() {
 
       const getRoom = async () => {
         try {
-          const {data} = await axios.get(`http://localhost:5000/Room/${id}`);
-          console.log(data.Room);
+          const {data} = await axios.get(`http://localhost:5000/chat/rooms/${id}`);
+          console.log(data);
           setUpdateRoom({
             name: data.room.name,
           });
