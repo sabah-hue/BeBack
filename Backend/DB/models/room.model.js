@@ -5,6 +5,11 @@ const roomSchema = new Schema({
         type:String,
         require:true
     },
+    createdBy:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        default: 'Admin'
+    }
 },{timestamps:true})
 
 const roomModel = mongoose.model('Room' , roomSchema);

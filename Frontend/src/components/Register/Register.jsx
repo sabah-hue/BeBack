@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './Register.css';
+import { Link } from 'react-router-dom';
 
 
 export default function Register() {
@@ -124,6 +125,8 @@ export default function Register() {
     <button className="btn bg-main text-white" type="submit" disabled={!(regData.isValid && regData.dirty && !loading)}>
       {!loading ? 'Register' : <i className='fas fa-spinner fa-spin'></i>}
     </button>
+    <Link className="nav-link text-primary my-2" to="/login">Already have an acount ? got ot login</Link>
+
   </div>
 </form>
 

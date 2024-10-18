@@ -1,21 +1,21 @@
 import userModel from '../../DB/models/user.model.js'
 import { asyncErrorHandler, ResError } from '../utils/errorHandler.js';
 import { verifyToken } from '../utils/token.js';
+import * as dotenv from 'dotenv'
+dotenv.config();
 
 export const auth = asyncErrorHandler(
     async (req,res,next)=>{
-        const {authorization} = req.headers;
-    
+        const authorization = req.headers.authorization;
             if(!authorization?.startsWith(process.env.BEARER_KEY)){ 
                 return next(new Error('in-valid bearer key',{cause:409}))
-    
             }
             const token = authorization.split(process.env.BEARER_KEY)[1];
             if(!token){ 
                 return next(new ResError('token require',400))
             }
         
-            const decode = verifyToken({token})
+            const decode = verifyToken(token)
             console.log(decode)
             if(!decode?.id){
                 return next(new ResError('in-valid token payload', 400 ))

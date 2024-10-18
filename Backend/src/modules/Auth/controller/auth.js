@@ -112,3 +112,40 @@ export const removeAccount = async (req, res, next) => {
     return user?.isConfirm === false ? res.status(200).redirect(`http://localhost:3000/register`) :
                                 res.status(404).send('oops ... something wrong');
 }
+
+ /// =========== logOut =============== ///
+ export const logout = async (req,res,next)=>{
+
+    const { id } = req.body;
+    console.log(req.body);
+    const userCheck = await userModel.findOne({ _id: id }); 
+    if(userCheck.isLoggedIn == false) 
+    { return next(new ResError('you are already logout' , 400 ))}
+    if(userCheck){
+        await userModel.updateOne({_id:userCheck._id} , {isLoggedIn:false, status:'offline'},{new:true})
+        res.status(200).json({message:'logged out successfuly'})
+      }else{
+      return next(new ResError('fail to logout' , 400 ))
+  
+    }
+   }
+   
+    /// =========== changePassword =============== ///
+   export const changePassword = async (req, res,next) => {
+
+   const { email, oldpassword , newpassword } = req.body;
+        const userCheck = await userModel.findOne({ email }); 
+        if(userCheck){
+          const check = comparePassword(oldpassword, userCheck.password);
+          console.log(check);
+          if (check) {
+            const newPass = hashPassword(newpassword);
+            await userModel.findOneAndUpdate({_id:userCheck._id} , {password:newPass})
+                res.status(200).json({ message: "changed Successfuly" })
+          } else {
+            res.status(200).json({ message: "wrong email or password" })
+          }
+      } else {
+        return next(new ResError('fail',400));
+      }
+  };

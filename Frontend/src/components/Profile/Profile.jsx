@@ -3,18 +3,20 @@ import './Profile.css';
 import axios from "axios";
 import { Link, useParams } from 'react-router-dom'
 
-export default function Profile({ userData }) {
+export default function Profile({ userData, userToken }) {
   const {id: paramId} = useParams();
   const id = paramId || userData?.id;
   const [userProfile, setUserProfile] = useState({});
 
   useEffect(() => {
     getUserProfile();
-  }, [id]);
+  }, [id, userToken]);
 
   const getUserProfile = async () => {
     try {
-      let { data } = await axios.get(`http://localhost:5000/user/profile/${id}`);
+      console.log(userToken);
+      let { data } = await axios.get(`http://localhost:5000/user/profile/${id}`, {headers : { 
+        authorization: `${userToken}`}});
       console.log("Fetched user data:", data);
       
       if (data && data.user) {

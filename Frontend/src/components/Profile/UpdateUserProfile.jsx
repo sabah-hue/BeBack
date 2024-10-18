@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-export default function UpdateUserProfile() {
+export default function UpdateUserProfile({userToken}) {
 // loading
 const [loading, setLoading] = useState(false);
 
@@ -66,7 +66,6 @@ const uploadImage = async (value)=>{
         console.error("Error update user:", error);
       }
     };
-
 
       const getUser = async () => {
         try {

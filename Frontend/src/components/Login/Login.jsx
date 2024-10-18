@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 import '../Register/Register.css';
 
 
@@ -93,7 +94,12 @@ export default function Login({saveUserData}) {
   <div className="col-12">
     <button className="btn bg-main text-white" type="submit" disabled={!(regData.isValid && regData.dirty && !loading)}>
       {!loading ? 'Login' : <i className='fas fa-spinner fa-spin'></i>}
-    </button>
+    </button> 
+    <Link className="nav-link text-primary my-2" to="/register">Don't have acount, register first</Link>
+    <Link className="nav-link text-primary my-2" to="/ChangePassword">
+    <i class="fa-solid fa-key"></i> 
+     Change your password</Link>
+
   </div>
 </form>
 

@@ -140,7 +140,7 @@ export default function Chat({userData}) {
                   alt={user.username} className="avatar" />
                   <span className="ml-2">{user.username}</span>
 
-                  {/* edit to can show user chatPic and Bio */}
+                  {/* add this part to can show user chatPic and Bio */}
                   <i  data-bs-toggle="modal"
                     data-bs-target="#exampleModal"  className='ms-auto fas fa-eye'  onClick={()=>showUserDetails(user) }></i>
                 </li>

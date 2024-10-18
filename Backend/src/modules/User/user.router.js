@@ -7,7 +7,7 @@ import {myMulter , fileValidation} from '../../utils/upload.js'
 
 const router = Router();
 
-router.get("/", asyncErrorHandler(userController.getAllUsers))
+router.get("/", auth, asyncErrorHandler(userController.getAllUsers))
 router.get("/profile/:id", asyncErrorHandler(userController.userProfile))
 router.delete("/:id", asyncErrorHandler(userController.deleteUser))
 router.put("/updateuser/:id", asyncErrorHandler(userController.userUpdate))

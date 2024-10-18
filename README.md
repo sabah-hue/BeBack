@@ -1,13 +1,13 @@
 # Project Name:
-BeBack - it's a Backend community 
+BeBack - it's a software community 
 
 # Team Member: 
 Sabah Ahmed - Backend engineer
 ALX student cohort 20
 
 # Inspiration:
-Our project is inspired by fresh and junior backend engineer whose need support and help to start their career.
-To complete what we begin with ALX, hope to make community for ALX backend developer to keep in touch and helpful.
+Our project is inspired by fresh and junior software engineer whose need support and help to start their career.
+To complete what we begin with ALX, hope to make community for ALX software engineer to keep in touch and helpful.
 
 # Technologies:
 	Backend
@@ -59,7 +59,7 @@ or Download code from github:
     to have overview about website and features.
 
 # Usage :
-For Backend engineer can contact, chat and share experience.
+For software engineer can contact, chat and share experience.
 
 # Contribute :
 Fork the repository on GitHub and then clone it to your local machine using 
